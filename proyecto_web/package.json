@@ -4,30 +4,27 @@
   "description": "Proyecto final colaborativo para la materia 'Integradora' del noveno cuatrimestre.",
   "main": "index.js",
   "scripts": {
-    "compile": "webpack",
+    "client-install": "npm install --prefix client",
     "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "Juan Daniel Dimas Amador, Ribay Fernandez Romero, Oswaldo Garcia Lemus, Oswaldo Daniel Hernandez Cortes, Lizeth Ortega Vargas",
   "license": "ISC",
   "dependencies": {
-    "babel-core": "^6.26.3",
-    "babel-loader": "^7.1.5",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "concurrently": "^3.6.1",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.2.5",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
-    "validator": "^10.4.0",
-    "webpack": "^4.16.2",
-    "webpack-dev-middleware": "^3.1.3"
+    "validator": "^10.4.0"
   },
   "devDependencies": {
-    "webpack-command": "^0.4.1"
+    "nodemon": "^1.18.3"
   }
 }

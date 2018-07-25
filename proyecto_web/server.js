@@ -3,12 +3,7 @@ const bprs = require("body-parser");
 const express = require('express');
 const mongoose = require("mongoose");
 const passport = require("passport");
-const webpack = require('webpack');
-const webpackConfig = require('./webpack.config.js');
-const webpackDevMiddleware = require('webpack-dev-middleware');
 
-//usage
-const compiler = webpack(webpackConfig);
 
 //api routes
 
@@ -16,13 +11,13 @@ const compiler = webpack(webpackConfig);
 //initialize
 const app = express();
 
-//Middle wares
-app.use(bprs.urlencoded({extended: false}));//Body parser itself
-app.use(bprs.json());                       //Json parser
-app.use(passport.initialize());             //passport Middle Ware
+//Middle wares   -- Descomentar unicamente cuando se tengan hechos los esquemas del usuario, ya que son los necesarios
+//app.use(bprs.urlencoded({extended: false}));//Body parser itself
+//app.use(bprs.json());                       //Json parser
+//app.use(passport.initialize());             //passport Middle Ware
 
-//passport config
-require("./config/passport")(passport);
+//passport config   -- Descomentar unicamente cuando se tengan hechos los esquemas del usuario, ya que aqui se manda llamar y autoejecutar al archivo passport
+//require("./config/passport")(passport);
 
 //DB config
 const db = require("./config/keys").mongoURI;
@@ -32,20 +27,7 @@ mongoose.connect(db).then(() => console.log("Connected")).catch((err) => console
 
 //use routes
 
-
-
-//compiling webpack
-app.use(express.static(__dirname + '/static'));
-
-app.use(webpackDevMiddleware(compiler, {
-    hot: true,
-    filename: 'bundle.js',
-    publicPath: '/',
-    stats: {
-        colors: true,
-    },
-    historyApiFallback: true,
-}));
+//using static files
 
 //initializing server
 const port = process.env.PORT || 5000;
