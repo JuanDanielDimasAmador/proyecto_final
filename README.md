@@ -2,20 +2,22 @@
 ---
 Proyecto final colaborativo para la materia "Integradora" del noveno cuatrimestre. 
 
-Inicializar
+Comandos
 ---
+Instalar. Este comando sirve para instalar todas las dependencias. Es recomendable checar primero la version de NPM que tiene instalado el cliente
 ```
 npm install
+npm client-install
 ``` 
-Compilar
----
- 
+Este comando inicializará el servidor de desarrollo. Inicializará tanto el servidor API como el cliente de ReactJS.
 ```
-npm run compile
+npm run dev
 ```
-Inicializa el servidor de desarrollo con éste comando. 
+La direccion de los servidores de desarollo y cliente son las siguientes
 ```
-npm start
+servidor: "http://localhost:5000/"
+
+cliente: "http://localhost:3000/"
 ```
  
  
