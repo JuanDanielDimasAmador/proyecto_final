@@ -6,26 +6,27 @@ const passport = require("passport");
 
 
 //api routes
-
+const users = require("./routes/api/users");
 
 //initialize
 const app = express();
 
 //Middle wares   -- Descomentar unicamente cuando se tengan hechos los esquemas del usuario, ya que son los necesarios
-//app.use(bprs.urlencoded({extended: false}));//Body parser itself
-//app.use(bprs.json());                       //Json parser
-//app.use(passport.initialize());             //passport Middle Ware
+app.use(bprs.urlencoded({extended: false}));//Body parser itself
+app.use(bprs.json());                       //Json parser
+app.use(passport.initialize());             //passport Middle Ware
 
 //passport config   -- Descomentar unicamente cuando se tengan hechos los esquemas del usuario, ya que aqui se manda llamar y autoejecutar al archivo passport
-//require("./config/passport")(passport);
+require("./config/passport")(passport);
 
 //DB config
 const db = require("./config/keys").mongoURI;
 
 //connect to mongoDB
-mongoose.connect(db).then(() => console.log("Connected")).catch((err) => console.log(err));
+mongoose.connect(db, {useNewUrlParser:true} ).then(() => console.log("Connected")).catch((err) => console.log(err));
 
 //use routes
+app.use("/api/users",users);
 
 //using static files
 
