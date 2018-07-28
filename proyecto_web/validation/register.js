@@ -1,6 +1,12 @@
 const isEmpty = require("./is-empty");
 const Validator = require("validator");
 
+/*
+* Este modulo checa si la cada valor del parametro data (en este caso req.body) está vacio o si no cumple el tamaño
+*
+* De encontrarse algun problema de estos, se ingresa un mensaje de error en un objeto, el cual despues se regresará mediante json
+* */
+
 module.exports = validateRegisterInput = (data) => {
     let errors = {};
 

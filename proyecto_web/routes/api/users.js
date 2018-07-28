@@ -20,18 +20,20 @@ router.get("/test",(req,res) => res.json({msg:"Users works"}));
 // @access  public
 router.post("/register", (req,res) => {
     const {errors, isValid} = validateRegisterInput(req.body);
-    //check validation
+    //check validation - Initializa a value from the nickname
     const nick = Nickname;
 
     if (!isValid) {
         return res.status(400).json(errors);
     }
+    //busca en base al email
     User.findOne({ email: req.body.email })
         .then(user => {
             if (user) {
+                //si existe, retorna el error
                 return res.status(400).json({email: "email already exists"});
             } else {
-
+                //si no existe, continua a crear un objeto en base al modelo usuario
                 const newUser = new User({
                     nickname: nick,
                     name: req.body.name,
@@ -42,13 +44,16 @@ router.post("/register", (req,res) => {
                         answer: req.body.answer
                     }
                 });
-
+                //encripta la contraseña
                 bcrypt.genSalt(10, (err, salt) => {
+
+                    //guarda todo en un objeto
                     bcrypt.hash(newUser.password, salt, (err, hash) => {
                         if (err) console.log(err);
                         newUser.password = hash;
                         newUser.save()
                             .then(user => res.json(user))
+                            //si hubo algun error, lo manda a consola
                             .catch(err => console.log(err));
                     });
                 });

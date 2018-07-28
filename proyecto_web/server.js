@@ -11,12 +11,12 @@ const users = require("./routes/api/users");
 //initialize
 const app = express();
 
-//Middle wares   -- Descomentar unicamente cuando se tengan hechos los esquemas del usuario, ya que son los necesarios
+//Middle wares
 app.use(bprs.urlencoded({extended: false}));//Body parser itself
 app.use(bprs.json());                       //Json parser
 app.use(passport.initialize());             //passport Middle Ware
 
-//passport config   -- Descomentar unicamente cuando se tengan hechos los esquemas del usuario, ya que aqui se manda llamar y autoejecutar al archivo passport
+//passport config -- Aqui se manda llamar y autoejecutar al archivo passport
 require("./config/passport")(passport);
 
 //DB config
