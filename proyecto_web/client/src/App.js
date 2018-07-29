@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route} from 'react-router-dom';
+
+import Navbar from './components/layout/navbar'
+
+import './styles/styles.css'
+
 /*
 * Esto es basicamente programacion orientada a objetos.
 *
@@ -17,9 +23,13 @@ class App extends Component {
 
     render() {
         return (
-            <div className="App">
-                <button onClick={ () => this.setState({ count: this.state.count + 1 }) }> Count: {this.state.count} </button>
-            </div>
+            <Router>
+                <div className="App">
+                    <Navbar/>
+                    <Route exact path="/"/>
+                    <button onClick={ () => this.setState({ count: this.state.count + 1 }) }> Count: {this.state.count} </button>
+                </div>
+            </Router>
         );
     }
 }
