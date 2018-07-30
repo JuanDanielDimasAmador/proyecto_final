@@ -10,6 +10,24 @@ const validateRegisterInput = require("../../validation/register");
 
 const Nickname = require("../../models/nickname");
 const User = require("../../models/user");
+
+
+//  READ
+router.get('/users', async (req, res) => {  //Ruta GET para el servidor
+    //const users = await User.find(); //Consulta. Guarda Datos.
+    //res.json(users);
+    res.json({msg:"get is working"});
+
+
+});
+
+// READ ONE
+router.get('/:id', async (req, res) => {
+    const user = await User.findById(req.params.id);
+    res.json(user);
+});
+
+
 // @route   GET api/users/test
 // @desc    tests users route
 // @access  public
@@ -60,6 +78,5 @@ router.post("/register", (req,res) => {
             }
         });
 });
-
 
 module.exports = router;
