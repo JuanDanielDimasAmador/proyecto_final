@@ -7,6 +7,7 @@ const keys = require("../../config/keys");
 const router = express.Router();
 
 const validateRegisterInput = require("../../validation/register");
+const validateLoginInput = require("../../validation/login");
 
 const Nickname = require("../../models/nickname");
 const User = require("../../models/user");
@@ -79,4 +80,59 @@ router.post("/register", (req,res) => {
         });
 });
 
+<<<<<<< HEAD
+=======
+
+// @route   GET api/users/login
+// @desc    log an user
+// @access  public
+router.post("/login", (req,res) => {
+    const {errors, isValid} = validateLoginInput(req.body);
+    //checar validacion
+    if (!isValid) {
+        return res.status(400).json(errors);
+    }
+    //busca un usuario en base al email
+    User.findOne({email: req.body.email})
+        .then(user => {
+            //si no existe el usuario, manda error
+            if (!user) {
+                errors.email = "El usuario no existe!";
+                return res.status(404).json(errors);
+            }
+            //compara la contraseña
+            bcrypt.compare(req.body.password, user.password)
+                .then(isMatch => {
+                    //si coincide, jwt carga el payload y genera una clave o token el cual expirará en 1 hora
+                    if (isMatch) {
+                        const payload = { id: user.id, name: user.name, avatar: user.avatar};
+                        jwt.sign(
+                            payload,
+                            keys.secretOrKey,
+                            { expiresIn: 3600 },
+                            (err,token) => {
+                                //si hubo un error, se manda, de no ser así, manda el token
+                                res.json( { success: true, token: 'Bearer ' + token } );
+                            }
+                        );
+                    //si no coincide la contraseña, manda un error de contraseña incorrecta
+                    } else {
+                        errors.password = "Contraseña incorrecta";
+                        res.status(404).json(errors);
+                    }
+                })
+        })
+});
+// @route   GET api/users/current
+// @desc    return the current user
+// @access  private
+router.get("/current", passport.authenticate("jwt", { session: false }), (req,res) => {
+    res.json({
+        id: req.user.id,
+        name: req.user.name,
+        email: req.user.email
+    });
+});
+
+>>>>>>> cb33f1d31f3bf53f30511539a8bd3db8ccefcde7
 module.exports = router;
