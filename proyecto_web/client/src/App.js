@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 
-import Navbar from './components/layout/navbar'
+import Navbar from './components/layout/navbar';
+import Counter from './components/counter';
 
 import './styles/styles.css'
 
@@ -16,10 +17,7 @@ import './styles/styles.css'
 
 
 class App extends Component {
-    constructor() {
-        super();
-        this.state = { count: 0 };
-    }
+
 
     render() {
         return (
@@ -27,7 +25,7 @@ class App extends Component {
                 <div className="App">
                     <Navbar/>
                     <Route exact path="/"/>
-                    <button onClick={ () => this.setState({ count: this.state.count + 1 }) }> Count: {this.state.count} </button>
+                    <Route exact path="/criticas" component={Counter}/>
                 </div>
             </Router>
         );
