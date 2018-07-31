@@ -7,11 +7,16 @@ Comandos
 Instalar. Este comando sirve para instalar todas las dependencias. Es recomendable checar primero la version de NPM que tiene instalado el cliente
 ```
 npm install
-npm client-install
+npm run client-install
 ``` 
 Este comando inicializará el servidor de desarrollo. Inicializará tanto el servidor API como el cliente de ReactJS.
 ```
 npm run dev
+```
+Para inicializar el servidor por si solo y el cliente por si solo, se usan los siguientes comandos
+```
+npm run client
+npm run server
 ```
 La direccion de los servidores de desarollo y cliente son las siguientes
 ```
