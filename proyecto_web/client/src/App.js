@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 
 import Navbar from './components/layout/navbar';
+import Landing from './components/layout/landing';
 import Counter from './components/counter';
+
 
 import './styles/styles.css'
 
@@ -17,14 +19,12 @@ import './styles/styles.css'
 
 
 class App extends Component {
-
-
     render() {
         return (
             <Router>
                 <div className="App">
                     <Navbar/>
-                    <Route exact path="/"/>
+                    <Route exact path="/" component={Landing}/>
                     <Route exact path="/criticas" component={Counter}/>
                 </div>
             </Router>
