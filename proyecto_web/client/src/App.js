@@ -4,6 +4,9 @@ import { BrowserRouter as Router, Route} from 'react-router-dom';
 import Navbar from './components/layout/navbar';
 import Landing from './components/layout/landing';
 import Counter from './components/counter';
+import Profile from './components/profile/profile';
+
+
 
 
 import './styles/styles.css'
@@ -26,6 +29,7 @@ class App extends Component {
                     <Navbar/>
                     <Route exact path="/" component={Landing}/>
                     <Route exact path="/criticas" component={Counter}/>
+                    <Route exact path="/profile" component={Profile}/>
                 </div>
             </Router>
         );

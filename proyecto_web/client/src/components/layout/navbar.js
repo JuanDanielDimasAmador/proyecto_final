@@ -30,6 +30,7 @@ class Navbar extends Component {
                     <NavLink direction="criticas"/>
                     <NavLink direction="login" />
                     <NavLink direction="register" />
+                    <NavLink direction="profile" />
                 </ul>
             </header>
         );
