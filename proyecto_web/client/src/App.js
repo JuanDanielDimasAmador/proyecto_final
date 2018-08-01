@@ -5,6 +5,9 @@ import Navbar from './components/layout/navbar';
 import Landing from './components/layout/landing';
 import Register from './components/auth/register';
 import Counter from './components/counter';
+import Profile from './components/profile/profile';
+
+
 
 
 import './styles/styles.css'
@@ -28,6 +31,7 @@ class App extends Component {
                     <Route exact path="/" component={Landing}/>
                     <Route exact path="/criticas" component={Counter}/>
                     <Route exact path="/register" component={Register}/>
+                    <Route exact path="/profile" component={Profile}/>
                 </div>
             </Router>
         );
