@@ -33,11 +33,11 @@ module.exports = validateRegisterInput = (data) => {
 
     if (!Validator.equals(data.password, data.password2))  errors.password2  = "Las contraseñas debe de coincidir";
 
-    if (Validator.isEmpty(data.question)) errors.question = "Debe de elegir una pregunta de seguridad";
+    //if (Validator.isEmpty(data.question)) errors.question = "Debe de elegir una pregunta de seguridad";
 
-    if (Validator.isEmpty(data.answer)) errors.answer = "Debe de introducir una respuesta";
+    //if (Validator.isEmpty(data.answer)) errors.answer = "Debe de introducir una respuesta";
 
-    if (!Validator.isLength(data.answer, {min:6, max: 30} )) errors.answer = "la respuesta debe de contener entre 6 y 30 caracteres";
+    //if (!Validator.isLength(data.answer, {min:6, max: 30} )) errors.answer = "la respuesta debe de contener entre 6 y 30 caracteres";
 
     return {
         errors,
