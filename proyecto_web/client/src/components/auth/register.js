@@ -29,46 +29,46 @@ class Register extends Component {
         return (
             <div className="register">
                 <div className="register__container">
-                    <form onSubmit={this.onSubmit} className="register__form">
-                        <div className="register__form--group">
+                    <form onSubmit={this.onSubmit} className="form">
+                        <div className="form__group">
                             <input type="text"
-                                   className="register__form--input"
+                                   className="form__input"
                                    name="name"
                                    placeholder="Ingrese su nombre"
                                    value={this.state.name}
                                    onChange = {this.onChange}
                             />
-                            <span className="register__form--input-icon" />
+                            <span className="form__input--icon" />
                         </div>
-                        <div className="register__form--group">
+                        <div className="form__group">
                             <input type="email"
-                                   className="register__form--input"
+                                   className="form__input"
                                    name="email"
                                    placeholder="Ingrese su correo"
                                    value={this.state.email}
                                    onChange = {this.onChange}
                             />
-                            <span className="register__form--input-icon" />
+                            <span className="form__input--icon" />
                         </div>
-                        <div className="register__form--group">
+                        <div className="form__group">
                             <input type="text"
-                                   className="register__form--input"
+                                   className="form__input"
                                    name="password"
                                    placeholder="Ingrese su contraseña"
                                    value={this.state.password}
                                    onChange = {this.onChange}
                             />
-                            <span className="register__form--input-icon" />
+                            <span className="form__input--icon" />
                         </div>
-                        <div className="register__form--group">
+                        <div className="form__group">
                             <input type="text"
-                                   className="register__form--input"
+                                   className="form__input"
                                    name="password2"
                                    placeholder="Confirme su contraseña"
                                    value={this.state.password2}
                                    onChange = {this.onChange}
                             />
-                            <span className="register__form--input-icon" />
+                            <span className="form__input--icon" />
                         </div>
                         <input type="submit" className="button button-submit"/>
                     </form>
