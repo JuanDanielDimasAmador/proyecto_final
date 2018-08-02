@@ -6,6 +6,9 @@ const router = express.Router();
 const validateCriticInput = require("../../validation/critic");
 const Critic = require("../../models/critic");
 
+// @route   GET api/critics/
+// @desc    create a new critic
+// @access  private
 router.post("/",passport.authenticate("jwt",{session: false}),(req,res) => {
     const { errors, isValid } = validateCriticInput(req.body);
     //validar campos
