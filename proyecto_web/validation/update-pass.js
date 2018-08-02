@@ -16,4 +16,9 @@ module.exports = validateUpdatePassInput = (data) => {
     if (!Validator.isLength(data.password2, {min: 6, max: 30})) errors.password2 = "la contraseña debe de contener entre 6 y 30 caracteres";
 
 
+    return {
+        errors,
+        isValid: isEmpty(errors)
+    }
+
 };
