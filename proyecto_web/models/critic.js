@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const CriticSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: "users" },
+    place: { type: Schema.Types.ObjectId, ref: "places"  },
     title: { type: String, required: true },
     text: { type: String, required: true },
     classification: { type: String, default: "Critica", required: true},
