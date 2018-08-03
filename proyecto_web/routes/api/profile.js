@@ -8,6 +8,7 @@ const router = express.Router();
 const User = require("../../models/user");
 const Critic = require("../../models/critic");
 const validateUpdatePassInput = require("../../validation/update-pass");
+const validateUpdateEmailInput = require("../../validation/update-email");
 
 
 // @route   GET api/profile/
@@ -86,6 +87,59 @@ router.post("/updatePassword", passport.authenticate('jwt', {session: false}), (
                 }).catch(err => console.log(err));
         } else {
             //si no encontro el usuario, manda los errores por JSOn
+            errors.noUser = "No existe el usuario";
+            res.status(404).json(errors.noUser);
+        }
+    });
+});
+
+//@route    GET api/profile/updateEmail
+//@desc     Actualiza el email
+//access    private
+router.post("/updateEmail", passport.authenticate('jwt', {session: false}), (req, res) =>{
+    const { errors, isValid } = validateUpdateEmailInput(req.body);
+    //Validación de campos
+    if (!isValid){
+        return res.status(400).json(errors);
+    }
+    //Se pone el email actual como el nuevo email
+    const newUser = {
+        email: req.body.email2
+    };
+    //Busca el usuario mediante el ID
+    User.findOne({_id: req.body.id}).then(user =>{
+        if (user){
+            //Si lo encuentra, compara el email actual con el de la petición
+            bcrypt.compare(req.body.email, user.email)
+            .then(isMatch =>{
+                //Si coincide
+                if (isMatch){
+                    //Se genera el hash
+                    bcrypt.genSalt(10, (err,salt) => {
+                        //Genera el hash en base a la contraseña del objeto
+                        bcrypt.hash(newUser.email, salt, (err, hash) => {
+                            //Si ocurre un error, mandarlo a consola
+                            if(err) console.log(err);
+                            //Se asigna al objeto el email hasheado
+                            newUser.email = hash;
+                            //Encuentra y actualiza, setea los parametros y los regresa por JSON
+                            User.findOneAndUpdate(
+                                { _id: req.user.id },
+                                { $set: newUser },
+                                { new: true }
+                            ).then(updated => res.json(updated));
+
+                        });
+                    });
+                }else{
+                    //Si no coincidio, es email incorrecto
+                    errors.email = "Email incorrrecto";
+                    res.status(404).json(errors);
+                }
+                //Atrapa los errores y los manda a consola
+            }).catch(err => console.log(err));
+        } else {
+            //Si no se encontro el usuario, manda los errores por JSON
             errors.noUser = "No existe el usuario";
             res.status(404).json(errors.noUser);
         }
