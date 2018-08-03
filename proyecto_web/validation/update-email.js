@@ -13,7 +13,7 @@ module.exports = validateUpdateEmailInput = (data) => {
 
     if (Validator.isEmpty(data.email2)) errors.email2 = "Campo es requerido";
 
-    if (Validator.isEmail(data.email)) errors.email = "Email invalido";
+    if (!Validator.isEmail(data.email)) errors.email = "Email invalido";
 
     return {
         errors,

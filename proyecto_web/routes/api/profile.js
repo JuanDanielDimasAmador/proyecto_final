@@ -109,23 +109,12 @@ router.post("/updateEmail", passport.authenticate('jwt', {session: false}), (req
     //Busca el usuario mediante el ID
     User.findOne({_id: req.body.id}).then(user =>{
         if(user){
-            //Si lo encuentra, compara el email con el de la petición
-            bcrypt.compare(req.body.email, user.email)
-            .then(isMatch =>{
-                //Si coincide
-                if (isMatch){
-                    //Encuentra y actualiza, setea los parametros y los regresa por JSON
-                    User.findOneAndUpdate(
-                        { _id: req.user.id },
-                        { $set: newUser },
-                        { new: true }
-                    ).then(updated => res.json(updated));
-                } else {
-                    //Si no coincidio, es email incorrecto
-                    errors.email = "Email incorrrecto";
-                    res.status(404).json(errors);
-                }
-            }).catch(err => console.log(err));
+            //Encuentra y actualiza, setea los parametros y los regresa por JSON
+            User.findOneAndUpdate(
+                { _id: req.user.id },
+                { $set: newUser },
+                { new: true }
+            ).then(updated => res.json(updated)).catch(err => console.log(err));
         } else {
            //Si no se encontro el usuario, manda los errores por JSON
            errors.noUser = "No existe el usuario";
