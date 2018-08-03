@@ -108,43 +108,30 @@ router.post("/updateEmail", passport.authenticate('jwt', {session: false}), (req
     };
     //Busca el usuario mediante el ID
     User.findOne({_id: req.body.id}).then(user =>{
-        if (user){
-            //Si lo encuentra, compara el email actual con el de la petición
+        if(user){
+            //Si lo encuentra, compara el email con el de la petición
             bcrypt.compare(req.body.email, user.email)
             .then(isMatch =>{
                 //Si coincide
                 if (isMatch){
-                    //Se genera el hash
-                    bcrypt.genSalt(10, (err,salt) => {
-                        //Genera el hash en base a la contraseña del objeto
-                        bcrypt.hash(newUser.email, salt, (err, hash) => {
-                            //Si ocurre un error, mandarlo a consola
-                            if(err) console.log(err);
-                            //Se asigna al objeto el email hasheado
-                            newUser.email = hash;
-                            //Encuentra y actualiza, setea los parametros y los regresa por JSON
-                            User.findOneAndUpdate(
-                                { _id: req.user.id },
-                                { $set: newUser },
-                                { new: true }
-                            ).then(updated => res.json(updated));
-
-                        });
-                    });
-                }else{
+                    //Encuentra y actualiza, setea los parametros y los regresa por JSON
+                    User.findOneAndUpdate(
+                        { _id: req.user.id },
+                        { $set: newUser },
+                        { new: true }
+                    ).then(updated => res.json(updated));
+                } else {
                     //Si no coincidio, es email incorrecto
                     errors.email = "Email incorrrecto";
                     res.status(404).json(errors);
                 }
-                //Atrapa los errores y los manda a consola
             }).catch(err => console.log(err));
         } else {
-            //Si no se encontro el usuario, manda los errores por JSON
-            errors.noUser = "No existe el usuario";
-            res.status(404).json(errors.noUser);
+           //Si no se encontro el usuario, manda los errores por JSON
+           errors.noUser = "No existe el usuario";
+           res.status(404).json(errors.noUser); 
         }
     });
 });
-
 
 module.exports = router;
