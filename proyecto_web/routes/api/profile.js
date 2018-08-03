@@ -1,4 +1,5 @@
 const express = require("express");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 
@@ -38,23 +39,44 @@ router.get("/posts",passport.authenticate('jwt', {session:false}), (req,res) => 
 });
 
 router.post("/updatePassword", passport.authenticate('jwt', {session: false}), (req, res) => {
-    const errors = { errors, isValid } = validateUpdatePassInput(req.body);
+    const { errors, isValid } = validateUpdatePassInput(req.body);
     //Validación de campos
     if (!isValid){
         return res.status(400).json(errors);
     }
-    const newPass = new Pass({
-        user: req.user.id,
-        password: req.body.password,
-        password2: req.body.password2
+    const newUser = {
+        password: req.body.password2
+    };
+    User.findOne({_id: req.user.id}).then(user => {
+        if (user){
+            bcrypt.compare(req.body.password, user.password)
+                .then(isMatch => {
+                    if (isMatch) {
+                        bcrypt.genSalt(10, (err,salt) => {
+                            bcrypt.hash(newUser.password, salt, (err, hash) => {
+                                if (err) console.log(err);
+                                newUser.password = hash;
+                                User.findOneAndUpdate(
+                                    { _id: req.user.id},
+                                    { $set: newUser },
+                                    { new: true }
+                                ).then(updated => res.json(updated));
+
+                            });
+                        });
+                    } else {
+                        errors.password = "contraseña incorrecta";
+                        res.status(404).json(errors);
+                    }
+                }).catch(err => {
+                    console.log(err);
+                    res.json(err);
+                });
+        } else {
+            errors.noUser = "No existe el usuario";
+            res.status(404).json(errors.noUser);
+        }
     });
-    //Enontrar usuario via id
-    User.find({user: req.user.id})
-        .then(User =>{
-            errors.noPosts = "No se encuentra al usuario";
-        })
-        .catch(err => res.status(404).json(err));
-    User.update().then(user => res.json(user)) .catch(err => console.log(err));
 });
 
 
