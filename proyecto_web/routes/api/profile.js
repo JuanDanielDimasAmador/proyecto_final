@@ -26,7 +26,7 @@ router.get("/", passport.authenticate('jwt', {session: false}), (req, res) => {
 
 // @route   GET api/profile/posts
 // @desc    gets user's posts
-// @access  public
+// @access  private
 router.get("/posts",passport.authenticate('jwt', {session:false}), (req,res) => {
     const errors = { };
     Critic.find({ user: req.user.id })
@@ -38,6 +38,10 @@ router.get("/posts",passport.authenticate('jwt', {session:false}), (req,res) => 
         .catch(err => res.status(404).json(err));
 });
 
+
+// @route   GET api/profile/updatePassword
+// @desc    actualiza la contraseña
+// @access  private
 router.post("/updatePassword", passport.authenticate('jwt', {session: false}), (req, res) => {
     const { errors, isValid } = validateUpdatePassInput(req.body);
     //Validación de campos
