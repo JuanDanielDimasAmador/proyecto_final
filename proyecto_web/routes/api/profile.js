@@ -44,18 +44,27 @@ router.post("/updatePassword", passport.authenticate('jwt', {session: false}), (
     if (!isValid){
         return res.status(400).json(errors);
     }
+    //pone la contraseña actual como la nueva contraseña
     const newUser = {
         password: req.body.password2
     };
+    //busca el usuario por ID
     User.findOne({_id: req.user.id}).then(user => {
         if (user){
+            //si lo encuentra, compara la contraseña actual con la de la peticion
             bcrypt.compare(req.body.password, user.password)
                 .then(isMatch => {
+                    //si coincide
                     if (isMatch) {
+                        //va a generar el hash
                         bcrypt.genSalt(10, (err,salt) => {
+                            //genera el hash en base a la contraseña del objeto
                             bcrypt.hash(newUser.password, salt, (err, hash) => {
+                                //si hubo un error mandalo a consola
                                 if (err) console.log(err);
+                                //asigna al objeto la contraseña hasheada
                                 newUser.password = hash;
+                                //encuentra y actualiza, setea los parametros y los regresa por JSON
                                 User.findOneAndUpdate(
                                     { _id: req.user.id},
                                     { $set: newUser },
@@ -65,14 +74,14 @@ router.post("/updatePassword", passport.authenticate('jwt', {session: false}), (
                             });
                         });
                     } else {
+                        //si no coincidio, es contraseña incorrecta
                         errors.password = "contraseña incorrecta";
                         res.status(404).json(errors);
                     }
-                }).catch(err => {
-                    console.log(err);
-                    res.json(err);
-                });
+                    //atrapa los errores y los manda a consola
+                }).catch(err => console.log(err));
         } else {
+            //si no encontro el usuario, manda los errores por JSOn
             errors.noUser = "No existe el usuario";
             res.status(404).json(errors.noUser);
         }
