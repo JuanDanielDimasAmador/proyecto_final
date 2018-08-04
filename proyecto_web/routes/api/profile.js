@@ -107,14 +107,19 @@ router.post("/updateEmail", passport.authenticate('jwt', {session: false}), (req
         email: req.body.email2
     };
     //Busca el usuario mediante el ID
-    User.findOne({_id: req.body.id}).then(user =>{
+    User.findOne({_id: req.user.id}).then(user =>{
         if(user){
-            //Encuentra y actualiza, setea los parametros y los regresa por JSON
-            User.findOneAndUpdate(
-                { _id: req.user.id },
-                { $set: newUser },
-                { new: true }
-            ).then(updated => res.json(updated)).catch(err => console.log(err));
+            if (user.email === req.body.email) {
+                //Encuentra y actualiza, setea los parametros y los regresa por JSON
+                User.findOneAndUpdate(
+                    { _id: req.user.id },
+                    { $set: newUser },
+                    { new: true }
+                ).then(updated => res.json(updated)).catch(err => console.log(err));
+            } else {
+                errors.email = "el email no corresponde";
+                res.json(errors);
+            }
         } else {
            //Si no se encontro el usuario, manda los errores por JSON
            errors.noUser = "No existe el usuario";
