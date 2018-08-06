@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types'
 
 class Navbar extends Component {
     render () {
+        const { location } = this.props;
+
+        const navClass = (loc) => {
+            if (loc.toString() === "/") {
+                return "navbar navbar-landing"
+            } else {
+                return "navbar"
+            }
+        };
+
+
         function NavLink(props){
             return (
                 <li className="navbar__list--item">
@@ -21,9 +34,10 @@ class Navbar extends Component {
         }
 
         return (
-            <header className="navbar" >
+
+            <header className={navClass(location.pathname)} >
                 <div className="navbar__nav">
-                    <span className="navbar__nav--button-logo" />
+                    <span className="navbar__nav--button-logo"/>
                     <NavSearch />
                 </div>
                 <ul className="navbar__list">
@@ -37,4 +51,10 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar;
+Navbar.propTypes = {
+    match: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired
+};
+
+export default withRouter(Navbar);

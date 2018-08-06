@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import store from './store';
 
 import Navbar from './components/layout/navbar';
 import Landing from './components/layout/landing';
 import Register from './components/auth/register';
 import Counter from './components/counter';
 import Profile from './components/profile/profile';
-
-
-
 
 import './styles/styles.css'
 
@@ -25,15 +25,17 @@ import './styles/styles.css'
 class App extends Component {
     render() {
         return (
-            <Router>
-                <div className="App">
-                    <Navbar/>
-                    <Route exact path="/" component={Landing}/>
-                    <Route exact path="/criticas" component={Counter}/>
-                    <Route exact path="/register" component={Register}/>
-                    <Route exact path="/profile" component={Profile}/>
-                </div>
-            </Router>
+            <Provider store={store}>
+                <Router>
+                    <div className="App">
+                        <Navbar/>
+                        <Route exact path="/" component={Landing}/>
+                        <Route exact path="/criticas" component={Counter}/>
+                        <Route exact path="/register" component={Register}/>
+                        <Route exact path="/profile" component={Profile}/>
+                    </div>
+                </Router>
+            </Provider>
         );
     }
 }
