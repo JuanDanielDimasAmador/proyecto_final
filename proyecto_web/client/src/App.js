@@ -14,7 +14,7 @@ import Login from './components/auth/login';
 import Counter from './components/counter';
 import Profile from './components/profile/profile';
 
-import './styles/styles.css'
+import './styles/css/styles.css'
 
 /*
 * Esto es basicamente programacion orientada a objetos.
