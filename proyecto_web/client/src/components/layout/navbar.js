@@ -56,16 +56,24 @@ class Navbar extends Component {
         };
 
         const NavGuest = () => {
-                return [
-                    <NavLink direction="login" />,
-                    <NavLink direction="register" />
-                ];
+                return (
+                    <ul className="navbar__list">
+                        <NavLink direction="criticas"/>
+                        <NavLink direction="login" />
+                        <NavLink direction="register" />
+                    </ul>
+
+                );
             },
             NavAuth = () => {
-                return [
-                    <NavLink direction="dashboard" />,
-                    <NavLogout />
-                ];
+                return (
+                    <ul className="navbar__list">
+                        <NavLink direction="criticas"/>
+                        <NavLink direction="dashboard" />
+                        <NavLogout />
+                    </ul>
+
+                );
             };
 
         return (
@@ -74,10 +82,8 @@ class Navbar extends Component {
                     <span className="navbar__nav--button-logo"/>
                     <NavSearch />
                 </div>
-                <ul className="navbar__list">
-                    <NavLink direction="criticas"/>
-                    { isAuthenticated ? <NavAuth/> : <NavGuest/> }
-                </ul>
+                { isAuthenticated ? <NavAuth/> : <NavGuest/> }
+
             </header>
         );
     }
