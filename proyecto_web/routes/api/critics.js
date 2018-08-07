@@ -24,4 +24,33 @@ router.post("/",passport.authenticate("jwt",{session: false}),(req,res) => {
     newCritic.save().then(critic => res.json(critic)).catch(err => console.log(err));
 });
 
+//@route    GET api/critics/
+//@desc     find all critics
+//@access   private
+router.get("/", passport.authenticate('jwt', {session: false}), (req,res) => {
+    const errors = { };
+    Critic.find()
+        .then(critics => {
+            errors.noCritics = "No existe ninguna critica";
+            if (!critics) return res.status(404).json(errors);
+            res.json(critics);
+        })
+        .catch(err => res.status(404).json(err));
+});
+
+//@route    GET api/critics/
+//@desc     find critic by ID
+//@access   private
+router.get("/:id", passport.authenticate('jwt', {session: false}), (req,res) => {
+    const errors = { };
+    const {id} = req.params;
+    Critic.findById(id)
+        .then(critics => {
+            errors.noCritics = "No existe ninguna critica";
+            if(!critics) return res.status(404).json(errors);
+            res.json(critics);
+        })
+        .catch(err => res.status(404). json(err));
+});
+
 module.exports = router;
