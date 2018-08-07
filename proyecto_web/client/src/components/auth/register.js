@@ -15,6 +15,12 @@ class Register extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentDidMount() {
+        if (this.props.auth.isAuthenticated) {
+            this.props.history.push("/dashboard");
+        }
+    }
+
     componentWillReceiveProps(nextProps){
         if (nextProps.errors) {
             this.setState({errors: nextProps.errors})
@@ -70,7 +76,8 @@ class Register extends Component {
                         </div>
                         { errors.email ? <div className="form__feedback--invalid">{ errors.email }</div> : null }
                         <div className="form__group">
-                            <input type="text"
+                            <input type="password"
+                                   autoComplete="new-password"
                                    className={errors.password ? "form__input--invalid" : "form__input"}
                                    name="password"
                                    placeholder="Ingrese su contraseña"
@@ -81,7 +88,8 @@ class Register extends Component {
                         </div>
                         { errors.password ? <div className="form__feedback--invalid">{ errors.password }</div> : null }
                         <div className="form__group">
-                            <input type="text"
+                            <input type="password"
+                                   autoComplete="new-password"
                                    className={errors.password2 ? "form__input--invalid" : "form__input"}
                                    name="password2"
                                    placeholder="Confirme su contraseña"

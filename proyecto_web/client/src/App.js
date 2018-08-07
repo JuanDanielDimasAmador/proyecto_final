@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import jwt_decode from 'jwt-decode';
 import { BrowserRouter as Router, Route} from 'react-router-dom';
 import { Provider } from 'react-redux';
 
+import setAuthToken from './utils/setauthtoken';
 import store from './store';
+import {logoutUser, setCurrentUser} from './actions/authactions';
 
 import Navbar from './components/layout/navbar';
 import Landing from './components/layout/landing';
@@ -22,6 +25,22 @@ import './styles/styles.css'
 * Cuando vayamos a crear mas componentes, se hace en la carpeta componentes, la cual se divide por topicos
 * */
 
+if (localStorage.jwtToken) {
+    //save the token and decode
+    setAuthToken(localStorage.jwtToken);
+    const decoded = jwt_decode(localStorage.jwtToken);
+
+    store.dispatch(setCurrentUser(decoded));
+
+    //check for expired token
+    const currentTime = Date.now()/1000;
+    
+    if (decoded.exp < currentTime){
+        store.dispatch(logoutUser());
+
+        window.location.href = '/login';
+    }
+}
 
 class App extends Component {
     render() {
@@ -34,7 +53,7 @@ class App extends Component {
                         <Route exact path="/criticas" component={Counter}/>
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Register}/>
-                        <Route exact path="/profile" component={Profile}/>
+                        <Route exact path="/dashboard" component={Profile}/>
                     </div>
                 </Router>
             </Provider>

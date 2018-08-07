@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
+
+import { logoutUser} from "../../actions/authactions";
 
 class Navbar extends Component {
+
+    onLogoutClick(e) {
+        e.preventDefault();
+        this.props.logoutUser();
+        this.props.history.push("/");
+    }
+
     render () {
-        const { location } = this.props;
+        const { location } = this.props,
+            { isAuthenticated } = this.props.auth;
 
         const navClass = (loc) => {
             if (loc.toString() === "/") {
@@ -14,7 +25,6 @@ class Navbar extends Component {
                 return "navbar"
             }
         };
-
 
         function NavLink(props){
             return (
@@ -33,8 +43,32 @@ class Navbar extends Component {
             );
         }
 
-        return (
+        const NavLogout = () => {
+            return (
+                <li className="navbar__list--item">
+                    <a
+                        className="navbar__list--link"
+                        href=""
+                        onClick={this.onLogoutClick.bind(this)}
+                    >Logout</a>
+                </li>
+            );
+        };
 
+        const NavGuest = () => {
+                return [
+                    <NavLink direction="login" />,
+                    <NavLink direction="register" />
+                ];
+            },
+            NavAuth = () => {
+                return [
+                    <NavLink direction="dashboard" />,
+                    <NavLogout />
+                ];
+            };
+
+        return (
             <header className={navClass(location.pathname)} >
                 <div className="navbar__nav">
                     <span className="navbar__nav--button-logo"/>
@@ -42,9 +76,7 @@ class Navbar extends Component {
                 </div>
                 <ul className="navbar__list">
                     <NavLink direction="criticas"/>
-                    <NavLink direction="login" />
-                    <NavLink direction="register" />
-                    <NavLink direction="profile" />
+                    { isAuthenticated ? <NavAuth/> : <NavGuest/> }
                 </ul>
             </header>
         );
@@ -52,9 +84,12 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-    match: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired
+    logoutUser: PropTypes.func.isRequired
 };
 
-export default withRouter(Navbar);
+const mapStateToProps = (state) => ({
+    auth: state.auth
+});
+
+export default connect(mapStateToProps,{logoutUser})(withRouter(Navbar));

@@ -14,17 +14,33 @@ class Login extends Component {
         this.onSubmit = this.onSubmit.bind(this);
     }
 
+    componentDidMount() {
+        if (this.props.auth.isAuthenticated) {
+            this.props.history.push("/dashboard");
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        if (nextProps.auth.isAuthenticated) {
+            this.props.history.push("/dashboard");
+        }
+
+        if (nextProps.errors) {
+            this.setState({errors: nextProps.errors})
+        }
+    }
+
     onChange(e){
         this.setState({ [e.target.name]: e.target.value });
     }
 
     onSubmit(e) {
         e.preventDefault();
-        const user = {
+        const userData = {
             email: this.state.email,
             password: this.state.password,
         };
-        console.log(user);
+       this.props.loginUser(userData);
     }
 
     render() {
@@ -46,7 +62,8 @@ class Login extends Component {
                         </div>
                         { errors.email ? <div className="form__feedback--invalid">{ errors.email }</div> : null }
                         <div className="form__group">
-                            <input type="text"
+                            <input type="password"
+                                   autoComplete="current-password"
                                    className={errors.password ? "form__input--invalid" : "form__input"}
                                    name="password"
                                    placeholder="Ingrese su contraseña"
@@ -75,4 +92,4 @@ const mapStateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(null, { loginUser} )(Login);
+export default connect(mapStateToProps, { loginUser} )(Login);
