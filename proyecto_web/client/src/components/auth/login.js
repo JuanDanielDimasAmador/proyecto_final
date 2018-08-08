@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-
 import TextFieldGroup from '../common/textfieldgroup';
-
 import { loginUser } from "../../actions/authactions";
 
 class Login extends Component {

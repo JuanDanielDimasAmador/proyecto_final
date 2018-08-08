@@ -12,9 +12,10 @@ import Landing from './components/layout/landing';
 import Register from './components/auth/register';
 import Login from './components/auth/login';
 import Counter from './components/counter';
-import Profile from './components/profile/profile';
+import Dashboard from './components/dashboard/dashboard';
 
 import './styles/css/styles.css'
+import { clearCurrentProfile } from './actions/profileActions';
 
 /*
 * Esto es basicamente programacion orientada a objetos.
@@ -38,6 +39,8 @@ if (localStorage.jwtToken) {
     if (decoded.exp < currentTime){
         store.dispatch(logoutUser());
 
+        store.dispatch(clearCurrentProfile());
+
         window.location.href = '/login';
     }
 }
@@ -53,7 +56,7 @@ class App extends Component {
                         <Route exact path="/criticas" component={Counter}/>
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Register}/>
-                        <Route exact path="/dashboard" component={Profile}/>
+                        <Route exact path="/dashboard" component={Dashboard}/>
                     </div>
                 </Router>
             </Provider>
