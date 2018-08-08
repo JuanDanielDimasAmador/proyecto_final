@@ -6,7 +6,7 @@ const router = express.Router();
 const validateCriticInput = require("../../validation/critic");
 const Critic = require("../../models/critic");
 
-// @route   GET api/critics/
+// @route   POST api/critics/
 // @desc    create a new critic
 // @access  private
 router.post("/",passport.authenticate("jwt",{session: false}),(req,res) => {

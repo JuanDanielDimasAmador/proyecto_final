@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css?family=Lato");
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit; }
+  *::after, *::before {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit; }
+
+html {
+  font-size: 100%;
+  font-family: "Lato", open-sans, sans-serif; }
+
+body {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }

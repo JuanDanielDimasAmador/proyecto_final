@@ -1,0 +1,36 @@
+//fonts
+@import url('https://fonts.googleapis.com/css?family=Lato');
+
+$font-main: 	    "Lato", open-sans, sans-serif !default;
+
+$primary-size:      3.998rem;
+$secondary-size:    2.827rem;
+$tertiary-size:	    1.999rem;
+$primary-sub:       1.414rem;
+$default-size: 	    1.000rem;
+$small-size:        0.707rem;
+
+//color
+$primary-dark:      #0081AF;
+$primary-main:      #00ABE7;
+$primary-light:     #2DC7FF;
+
+$success-dark:      #2ED164;
+$success-main:      #32E56E;
+$success-light:     #57E988;
+
+$error-dark:        #B51716;
+$error-main:        #DD1C1A;
+$error-light:       #E65958;
+
+$black-color:       #070707;
+$white-color:       #FBFFFE;
+
+$grey-dark:	        #333333;
+$grey-main: 	    #777777;
+$grey-main-alter: 	#999999;
+$grey-light:        #f7f7f7;
+$grey-light-alter:  #eeeeee;
+
+//color-components
+$hero-background:   rgba($primary-main,0.7);

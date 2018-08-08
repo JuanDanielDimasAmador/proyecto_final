@@ -40,10 +40,10 @@ router.get("/posts",passport.authenticate('jwt', {session:false}), (req,res) => 
 });
 
 
-// @route   GET api/profile/updatePassword
+// @route   POST api/profile/update_password
 // @desc    actualiza la contraseña
 // @access  private
-router.post("/updatePassword", passport.authenticate('jwt', {session: false}), (req, res) => {
+router.post("/update_password", passport.authenticate('jwt', {session: false}), (req, res) => {
     const { errors, isValid } = validateUpdatePassInput(req.body);
     //Validación de campos
     if (!isValid){
@@ -93,10 +93,10 @@ router.post("/updatePassword", passport.authenticate('jwt', {session: false}), (
     });
 });
 
-//@route    GET api/profile/updateEmail
+//@route    POST api/profile/update_email
 //@desc     Actualiza el email
 //access    private
-router.post("/updateEmail", passport.authenticate('jwt', {session: false}), (req, res) =>{
+router.post("/update_email", passport.authenticate('jwt', {session: false}), (req, res) =>{
     const { errors, isValid } = validateUpdateEmailInput(req.body);
     //Validación de campos
     if (!isValid){

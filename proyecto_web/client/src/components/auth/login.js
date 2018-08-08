@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+import TextFieldGroup from '../common/textfieldgroup';
+
 import { loginUser } from "../../actions/authactions";
 
 class Login extends Component {
@@ -49,30 +51,14 @@ class Login extends Component {
             <div className="login">
                 <div className="login__container">
                     <form onSubmit={this.onSubmit} className="form" noValidate>
-                        <div className="form__group">
-                            <input type="email"
-                                   autoComplete= "email"
-                                   className={errors.email ? "form__input--invalid" : "form__input"}
-                                   name="email"
-                                   placeholder="Ingrese su correo"
-                                   value={this.state.email}
-                                   onChange = {this.onChange}
-                            />
-                            <span className="form__input--icon" />
-                        </div>
-                        { errors.email ? <div className="form__feedback--invalid">{ errors.email }</div> : null }
-                        <div className="form__group">
-                            <input type="password"
-                                   autoComplete="current-password"
-                                   className={errors.password ? "form__input--invalid" : "form__input"}
-                                   name="password"
-                                   placeholder="Ingrese su contraseña"
-                                   value={this.state.password}
-                                   onChange = {this.onChange}
-                            />
-                            <span className="form__input--icon" />
-                        </div>
-                        { errors.password ? <div className="form__feedback--invalid">{ errors.password }</div> : null }
+                        <TextFieldGroup
+                            type="email" placeholder="Ingrese su correo electronico" name="email" value={this.state.email}
+                            onChange={this.onChange} autoComplete="email" error={errors.email}
+                        />
+                        <TextFieldGroup
+                            type="password" placeholder="Ingrese su contraseña" name="password" value={this.state.password}
+                            onChange={this.onChange} autoComplete="current-password" error={errors.password}
+                        />
                         <input type="submit" className="button button-submit"/>
                     </form>
                 </div>

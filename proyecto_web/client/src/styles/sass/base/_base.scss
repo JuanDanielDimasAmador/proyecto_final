@@ -4,7 +4,6 @@
     box-sizing: inherit;
 
     &::after, &::before {
-        //normal-props
         margin:0;
         padding: 0;
         box-sizing: inherit;
@@ -13,7 +12,8 @@
 
 html {
     font: {
-        size: 62.5%;
+        size: 100%;
+        family: $font-main;
     }
 }
 
