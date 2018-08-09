@@ -20,7 +20,13 @@ router.get("/", passport.authenticate('jwt', {session: false}), (req, res) => {
     .then( user => {
         errors.noUser = "No existe el usuario";
         if(!user) { return res.status(404).json(errors)}
-        res.json(user);
+        const currentUser = {
+            date: user.date,
+            name: user.name,
+            email: user.email,
+            nickname: user.nickname
+        };
+        res.json(currentUser);
     })
     .catch(err => res.status(404).json(err));        
 });

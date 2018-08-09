@@ -53,4 +53,20 @@ router.get("/:id", passport.authenticate('jwt', {session: false}), (req,res) => 
         .catch(err => res.status(404). json(err));
 });
 
+//@route    DELETE api/critics/:id
+//@desc     borrar critica
+//@access   private
+router.delete("/:id", passport.authenticate('jwt', {session: false}), (req,res) =>{
+    const errors = { };
+    Critic.findById(req.params.id)
+        .then(critic => {
+            if (critic.user.toString() === req.user.id) {
+                critic.remove().then(res.json("Success"));
+            } else {
+                errors.unauthorized = "Usuario no autorizado para borrar eso";
+                return res.json(errors.unauthorized);
+            }
+        }).catch(err => res.json(err))
+});
+
 module.exports = router;

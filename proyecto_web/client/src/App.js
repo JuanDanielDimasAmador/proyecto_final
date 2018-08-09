@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import jwt_decode from 'jwt-decode';
-import { BrowserRouter as Router, Route} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import setAuthToken from './utils/setauthtoken';
 import store from './store';
 import {logoutUser, setCurrentUser} from './actions/authactions';
+import { clearCurrentProfile } from './actions/profileActions';
 
 import Navbar from './components/layout/navbar';
 import Landing from './components/layout/landing';
@@ -14,8 +15,10 @@ import Login from './components/auth/login';
 import Counter from './components/counter';
 import Dashboard from './components/dashboard/dashboard';
 
+import PrivateRoute from './components/common/privateroute';
+
 import './styles/css/styles.css'
-import { clearCurrentProfile } from './actions/profileActions';
+
 
 /*
 * Esto es basicamente programacion orientada a objetos.
@@ -30,17 +33,13 @@ if (localStorage.jwtToken) {
     //save the token and decode
     setAuthToken(localStorage.jwtToken);
     const decoded = jwt_decode(localStorage.jwtToken);
-
     store.dispatch(setCurrentUser(decoded));
-
     //check for expired token
     const currentTime = Date.now()/1000;
-    
     if (decoded.exp < currentTime){
+        //eliminar sesion
         store.dispatch(logoutUser());
-
         store.dispatch(clearCurrentProfile());
-
         window.location.href = '/login';
     }
 }
@@ -56,7 +55,9 @@ class App extends Component {
                         <Route exact path="/criticas" component={Counter}/>
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Register}/>
-                        <Route exact path="/dashboard" component={Dashboard}/>
+                        <Switch>
+                            <PrivateRoute exact path="/dashboard" component={Dashboard}/>
+                        </Switch>
                     </div>
                 </Router>
             </Provider>
