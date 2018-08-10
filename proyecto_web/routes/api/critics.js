@@ -69,6 +69,9 @@ router.delete("/:id", passport.authenticate('jwt', {session: false}), (req,res) 
         }).catch(err => res.json(err))
 });
 
+//@route    POST api/critics/comment/:id
+//@desc     comentar una critica
+//@access   private
 router.post("/comment/:id",passport.authenticate('jwt', {session: false}), (req, res) => {
     Critic.findById(req.params.id).then(critic => {
         const newComment = {
@@ -80,6 +83,9 @@ router.post("/comment/:id",passport.authenticate('jwt', {session: false}), (req,
     }).catch(err => res.status(404).json(err));
 });
 
+//@route    POST api/critics/like/:id
+//@desc     like a critic
+//@access   private
 router.post("/like/:id",passport.authenticate('jwt', {session: false}), (req, res) => {
     Critic.findById(req.params.id).then(critic => {
         if (critic.likes.filter(like => like.user.toString() === req.user.id).length > 0 ) {
