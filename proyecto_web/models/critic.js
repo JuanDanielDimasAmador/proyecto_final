@@ -8,7 +8,8 @@ const CriticSchema = new Schema({
     text: { type: String, required: true },
     classification: { type: String, default: "Critica", required: true},
     likes: [ {
-        user: { type: Schema.Types.ObjectId, ref: "users" }
+        user: { type: Schema.Types.ObjectId, ref: "users" },
+        date: { type: Date, default: Date.now() }
     } ],
     comments: [ {
         user: { type: Schema.Types.ObjectId, ref: "users" },

@@ -69,4 +69,27 @@ router.delete("/:id", passport.authenticate('jwt', {session: false}), (req,res) 
         }).catch(err => res.json(err))
 });
 
+router.post("/comment/:id",passport.authenticate('jwt', {session: false}), (req, res) => {
+    Critic.findById(req.params.id).then(critic => {
+        const newComment = {
+            text: req.body.text,
+            user: req.user.id
+        };
+        critic.comments.unshift(newComment);
+        critic.save().then(post => res.json(post));
+    }).catch(err => res.status(404).json(err));
+});
+
+router.post("/like/:id",passport.authenticate('jwt', {session: false}), (req, res) => {
+    Critic.findById(req.params.id).then(critic => {
+        if (critic.likes.filter(like => like.user.toString() === req.user.id).length > 0 ) {
+            critic.likes.shift({user: req.user.id});
+            critic.save().then(post => res.json(post));
+        } else {
+            critic.likes.unshift({user: req.user.id});
+            critic.save().then(post => res.json(post));
+        }
+    })
+});
+
 module.exports = router;
