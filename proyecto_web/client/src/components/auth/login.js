@@ -7,13 +7,6 @@ import { loginUser } from "../../actions/authactions";
 
 class Login extends Component {
     //Loggin with Facebook.
-    state = {
-        isLoggedIn: false,
-        userID: '',
-        name: '',
-        email: '',
-        picture: ''
-    };
     
     responseFacebook = response => {
         console.log(response);
@@ -31,10 +24,15 @@ class Login extends Component {
     constructor () {
         super();
         this.state = {
-            email: '', password: '', errors: {}
+            email: '', password: '', errors: {},
+            isLoggedIn: false,
+            userID: '',
+            name: '',
+            picture: ''
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+
     }
 
     componentDidMount() {
