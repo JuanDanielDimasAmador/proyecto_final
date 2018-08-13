@@ -1,10 +1,32 @@
 import React, { Component } from 'react';
+import FacebookLogin from 'react-facebook-login';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextFieldGroup from '../common/textfieldgroup';
 import { loginUser } from "../../actions/authactions";
 
 class Login extends Component {
+    state = {
+        isLoggedIn: false,
+        userID: '',
+        name: '',
+        email: '',
+        picture: ''
+    };
+    
+    responseFacebook = response => {
+        //console.log(response);
+        this.setState({
+            isLoggedIn: true,
+            userID: response.userID,
+            name: response.name,
+            email: response.email,
+            picture: response.picture.data.url
+        });
+    };
+    
+    componentClicked = () => console.log("Clicked");
+
     constructor () {
         super();
         this.state = {
@@ -44,6 +66,21 @@ class Login extends Component {
     }
 
     render() {
+        //Login with Facebook
+        let fbContent;
+        if (this.state.isLoggedIn) {
+            fbContent = null;
+        } else {
+            fbContent = (<FacebookLogin
+            appId="275945779853061"
+            autoLoad={true}
+            fields="name,email,picture"
+            onClick={this.componentClicked}
+            callback={this.responseFacebook}/>
+
+            );
+        }
+
         const { errors } = this.state;
         return (
             <div className="login">
@@ -59,6 +96,7 @@ class Login extends Component {
                         />
                         <input type="submit" className="button button-submit"/>
                     </form>
+                    <div>{fbContent}</div>
                 </div>
             </div>
         );
