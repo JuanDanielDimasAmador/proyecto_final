@@ -6,6 +6,7 @@ import TextFieldGroup from '../common/textfieldgroup';
 import { loginUser } from "../../actions/authactions";
 
 class Login extends Component {
+    //Loggin with Facebook.
     state = {
         isLoggedIn: false,
         userID: '',
