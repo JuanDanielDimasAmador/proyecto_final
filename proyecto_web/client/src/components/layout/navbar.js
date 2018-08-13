@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logoutUser} from "../../actions/authactions";
 import { clearCurrentProfile } from "../../actions/profileActions";
@@ -16,16 +15,7 @@ class Navbar extends Component {
     }
 
     render () {
-        const { location } = this.props,
-            { isAuthenticated } = this.props.auth;
-
-        const navClass = (loc) => {
-            if (loc.toString() === "/") {
-                return "navbar navbar-landing"
-            } else {
-                return "navbar"
-            }
-        };
+        const { isAuthenticated } = this.props.auth;
 
         function NavLink(props){
             return (
@@ -78,20 +68,18 @@ class Navbar extends Component {
             };
 
         return (
-            <header className={navClass(location.pathname)} >
+            <header className="navbar">
                 <div className="navbar__nav">
                     <span className="navbar__nav--button-logo"/>
                     <NavSearch />
                 </div>
                 { isAuthenticated ? <NavAuth/> : <NavGuest/> }
-
             </header>
         );
     }
 }
 
 Navbar.propTypes = {
-    location: PropTypes.object.isRequired,
     logoutUser: PropTypes.func.isRequired
 };
 

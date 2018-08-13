@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import jwt_decode from 'jwt-decode';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import setAuthToken from './utils/setauthtoken';
@@ -46,12 +46,13 @@ if (localStorage.jwtToken) {
 }
 
 class App extends Component {
+
     render() {
         return (
             <Provider store={store}>
                 <Router>
                     <div className="App">
-                        <Navbar/>
+                        <Navbar />
                         <Route exact path="/" component={Landing}/>
                         <Route exact path="/criticas" component={Counter}/>
                         <Route exact path="/login" component={Login}/>
