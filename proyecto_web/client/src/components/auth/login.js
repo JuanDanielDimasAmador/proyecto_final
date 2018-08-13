@@ -12,10 +12,12 @@ class Login extends Component {
     constructor () {
         super();
         this.state = {
+
             email: '', password: '', errors: {}, isLoggedIn: false, userID: '', name: ''
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
+
     }
 
     componentClicked = () => console.log("Clicked");

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import jwt_decode from 'jwt-decode';
-import { BrowserRouter as Router, Route, Switch, withRouter } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import setAuthToken from './utils/setauthtoken';
