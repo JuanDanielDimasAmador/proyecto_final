@@ -14,6 +14,9 @@ import Login from './components/auth/login';
 import Counter from './components/counter';
 import Dashboard from './components/dashboard/dashboard';
 
+//import Facebook from './components/auth/login';
+
+
 import './styles/css/styles.css'
 import { clearCurrentProfile } from './actions/profileActions';
 
