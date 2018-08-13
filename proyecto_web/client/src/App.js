@@ -17,8 +17,9 @@ import Dashboard from './components/dashboard/dashboard';
 
 import PrivateRoute from './components/common/privateroute';
 
-import './styles/css/styles.css'
+//import Facebook from './components/auth/login';
 
+import './styles/css/styles.css';
 
 /*
 * Esto es basicamente programacion orientada a objetos.

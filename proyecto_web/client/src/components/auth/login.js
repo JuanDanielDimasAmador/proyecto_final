@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
+import FacebookLogin from 'react-facebook-login';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import TextFieldGroup from '../common/textfieldgroup';
 import { loginUser } from "../../actions/authactions";
 
 class Login extends Component {
+
     constructor () {
         super();
         this.state = {
-            email: '', password: '', errors: {}
+            email: '', password: '', errors: {}, isLoggedIn: false, userID: '', name: ''
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
     }
+
+    componentClicked = () => console.log("Clicked");
 
     componentDidMount() {
         if (this.props.auth.isAuthenticated) {
@@ -43,7 +47,33 @@ class Login extends Component {
        this.props.loginUser(userData);
     }
 
+    responseFacebook = response => {
+        console.log(response);
+        this.setState({
+            isLoggedIn: true,
+            userID: response.userID,
+            name: response.name,
+            email: response.email,
+        });
+    };
+
+
     render() {
+        //Login with Facebook
+        let fbContent;
+        if (this.state.isLoggedIn) {
+            fbContent = null;
+        } else {
+            fbContent = (<FacebookLogin
+            appId="275945779853061"
+            autoLoad={true}
+            fields="name,email,picture"
+            onClick={this.componentClicked}
+            callback={this.responseFacebook}/>
+
+            );
+        }
+
         const { errors } = this.state;
         return (
             <div className="login">
@@ -59,6 +89,7 @@ class Login extends Component {
                         />
                         <input type="submit" className="button button-submit"/>
                     </form>
+                    <div>{fbContent}</div>
                 </div>
             </div>
         );
