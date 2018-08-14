@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FacebookLogin from 'react-facebook-login';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -8,10 +9,28 @@ import TextFieldGroup from '../common/textfieldgroup';
 import { registerUser } from "../../actions/authactions";
 
 class Register extends Component {
+
+    responseFacebook = response =>{
+        console.log(response);
+        this.setState({
+            isLoggedIn: true,
+            userID: response.userID,
+            name: response.name,
+            email: response.email,
+            picture: response.picture.data.url
+        });
+    };
+
+    componetClicked = () => console.log("Clicked");
+
     constructor() {
         super();
         this.state = {
-            name: '', email: '', password: '', password2: '', errors: {}
+            name: '', email: '', password: '', password2: '', errors: {},
+            isLoggedIn: false,
+            userID: '',
+            name: '',
+            picture: ''
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -47,6 +66,21 @@ class Register extends Component {
     }
 
     render () {
+        //Login with Facebook
+        let fbContent;
+        if (this.state.isLoggedIn) {
+            this.props.history.push("/dashboard");
+        } else {
+            fbContent = (<FacebookLogin
+            appId="275945779853061"
+            autoLoad={true}
+            fields="name,email,picture"
+            onClick={this.componentClicked}
+            callback={this.responseFacebook}/>
+
+            );
+        }
+
         const { errors } = this.state;
 
         return (
@@ -71,6 +105,7 @@ class Register extends Component {
                         />
                         <input type="submit" className="button button-submit"/>
                     </form>
+                <div>{fbContent}</div>
                 </div>
             </div>
         );
