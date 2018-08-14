@@ -13,6 +13,7 @@ const PlaceSchema = new Schema({
     image: { type: String },
     ratings: [{
         user: {  type: Schema.Types.ObjectId, ref: "users" },
+        nickname: { type: String },
         rate: { type: Number }
     }]
 });

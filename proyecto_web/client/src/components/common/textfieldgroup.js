@@ -32,7 +32,7 @@ TextFieldGroup.propTypes = {
     error: PropTypes.string,
     disabled: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-    autoComplete: PropTypes.string.isRequired,
+    autoComplete: PropTypes.string,
     icon: PropTypes.string
 };
 

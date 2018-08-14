@@ -87,7 +87,7 @@ router.post("/login", (req,res) => {
                 .then(isMatch => {
                     //si coincide, jwt carga el payload y genera una clave o token el cual expirará en 1 hora
                     if (isMatch) {
-                        const payload = { id: user.id, name: user.name, avatar: user.avatar};
+                        const payload = { id: user.id, nickname: user.nickname};
                         jwt.sign(
                             payload,
                             keys.secretOrKey,

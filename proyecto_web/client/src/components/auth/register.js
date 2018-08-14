@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import TextFieldGroup from '../common/textfieldgroup';
@@ -104,6 +104,9 @@ class Register extends Component {
                             onChange={this.onChange} autoComplete="new-password" error={errors.password2}
                         />
                         <input type="submit" className="button button-submit"/>
+                        <span className="form__redirect">¿Ya tienes una cuenta?&nbsp;
+                            <Link to="/login" className="form__redirect--link">Inicia sesion</Link>
+                        </span>
                     </form>
                 <div>{fbContent}</div>
                 </div>

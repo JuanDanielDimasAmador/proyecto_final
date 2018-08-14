@@ -17,7 +17,7 @@ class Landing extends Component {
         return (
             <div className={"landing"}>
                 <div className="hero">
-                    <h1 className="hero__title">Empieza buscando tu ligar favorito para beber</h1>
+                    <h1 className="hero__title">Empieza buscando tu lugar favorito para beber</h1>
                     <HeroSearch/>
                     <Link to={""} className="button button-small hero__button">Mas sobre nosotros</Link>
                 </div>
