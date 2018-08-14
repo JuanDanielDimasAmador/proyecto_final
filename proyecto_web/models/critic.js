@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const CriticSchema = new Schema({
     user: { type: Schema.Types.ObjectId, ref: "users" },
+    nickname: { type: String },
     place: { type: Schema.Types.ObjectId, ref: "places"  },
     title: { type: String, required: true },
     text: { type: String, required: true },
@@ -13,6 +14,7 @@ const CriticSchema = new Schema({
     } ],
     comments: [ {
         user: { type: Schema.Types.ObjectId, ref: "users" },
+        nickname: { type: String },
         text: { type: String, required: true },
         date: { type: Date, default: Date.now() }
     } ],

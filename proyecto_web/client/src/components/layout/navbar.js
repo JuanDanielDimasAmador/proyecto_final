@@ -15,7 +15,8 @@ class Navbar extends Component {
     }
 
     render () {
-        const { isAuthenticated } = this.props.auth;
+        const { isAuthenticated } = this.props.auth,
+            { location } = this.props;
 
         function NavLink(props){
             return (
@@ -68,7 +69,7 @@ class Navbar extends Component {
             };
 
         return (
-            <header className="navbar">
+            <header className={ location.pathname === "/" ? "navbar navbar-landing" : "navbar" }>
                 <div className="navbar__nav">
                     <span className="navbar__nav--button-logo"/>
                     <NavSearch />
@@ -80,7 +81,8 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-    logoutUser: PropTypes.func.isRequired
+    logoutUser: PropTypes.func.isRequired,
+    location: PropTypes.object
 };
 
 const mapStateToProps = (state) => ({

@@ -3,18 +3,14 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getCurrentProfile } from '../../actions/profileActions';
 
-
 class Dashboard extends Component {
     componentDidMount(){
         this.props.getCurrentProfile();
-
     }
 
     render () {
-
         const { user } = this.props.auth,
             { profileInfo, loading } = this.props.profile;
-
         let dashboardContent;
 
         if (profileInfo == null || loading ) {
@@ -27,7 +23,6 @@ class Dashboard extends Component {
                 console.dir(profileInfo);
             }
         }
-
 
         return (
             <div className="dashboard">

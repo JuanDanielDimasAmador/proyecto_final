@@ -12,7 +12,6 @@ class Login extends Component {
     constructor () {
         super();
         this.state = {
-
             email: '', password: '', errors: {}, isLoggedIn: false, userID: '', name: ''
         };
         this.onChange = this.onChange.bind(this);
@@ -80,11 +79,11 @@ class Login extends Component {
 
         const { errors } = this.state;
         return (
-            <div className="login" data-toggle="modal" data-target="#myModal">
+            <div className="login">
                 <div className="login__container">
                     <form onSubmit={this.onSubmit} className="form" noValidate>
                         <TextFieldGroup
-                            type="email" class=".placeholder" placeholder="Ingrese su correo electronico" name="email" value={this.state.email}
+                            type="email" placeholder="Ingrese su correo electronico" name="email" value={this.state.email}
                             onChange={this.onChange} autoComplete="email" error={errors.email}
                         />
                         <TextFieldGroup

@@ -19,15 +19,15 @@ router.post("/",passport.authenticate("jwt",{session: false}),(req,res) => {
         user: req.user.id,
         title: req.body.title,
         text: req.body.text,
-        classification : req.body.classification
+        nickname: req.user.nickname
     });
     newCritic.save().then(critic => res.json(critic)).catch(err => console.log(err));
 });
 
 //@route    GET api/critics/
 //@desc     find all critics
-//@access   private
-router.get("/", passport.authenticate('jwt', {session: false}), (req,res) => {
+//@access   public
+router.get("/", (req,res) => {
     const errors = { };
     Critic.find()
         .then(critics => {
@@ -38,10 +38,10 @@ router.get("/", passport.authenticate('jwt', {session: false}), (req,res) => {
         .catch(err => res.status(404).json(err));
 });
 
-//@route    GET api/critics/
+//@route    GET api/critics/:id
 //@desc     find critic by ID
-//@access   private
-router.get("/:id", passport.authenticate('jwt', {session: false}), (req,res) => {
+//@access   public
+router.get("/:id", (req,res) => {
     const errors = { };
     const {id} = req.params;
     Critic.findById(id)
