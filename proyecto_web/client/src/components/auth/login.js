@@ -65,7 +65,7 @@ class Login extends Component {
         //Login with Facebook
         let fbContent;
         if (this.state.isLoggedIn) {
-            fbContent = null;
+            this.props.history.push("/dashboard");
         } else {
             fbContent = (<FacebookLogin
             appId="275945779853061"
