@@ -30,6 +30,7 @@ router.post("/",passport.authenticate("jwt",{session: false}),(req,res) => {
 router.get("/", (req,res) => {
     const errors = { };
     Critic.find()
+        .sort({date: -1})
         .then(critics => {
             errors.noCritics = "No existe ninguna critica";
             if (!critics) return res.status(404).json(errors);

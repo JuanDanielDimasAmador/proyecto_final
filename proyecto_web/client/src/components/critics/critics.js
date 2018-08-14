@@ -7,7 +7,7 @@ import { getPosts } from '../../actions/criticactions';
 import CriticForm from './criticform';
 import CriticFeed from './criticfeed';
 
-class Critic extends Component {
+class Critics extends Component {
 
     componentDidMount() {
         this.props.getPosts();
@@ -33,7 +33,7 @@ class Critic extends Component {
     }
 }
 
-Critic.propTypes = {
+Critics.propTypes = {
     getPosts: PropTypes.func.isRequired,
     critic: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired
@@ -44,4 +44,4 @@ const mapStateToProps = state => ({
     auth: state.auth
 });
 
-export default connect(mapStateToProps, {getPosts}) (Critic);
+export default connect(mapStateToProps, {getPosts}) (Critics);
