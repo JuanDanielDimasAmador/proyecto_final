@@ -6,7 +6,7 @@ import CriticItem from './criticitem';
 class CriticFeed extends Component{
     render() {
         const { posts } = this.props;
-        return posts.map(post => <CriticItem key={post._id} post={post} />)
+        return posts.map(post => <CriticItem key={post._id} post={post} cssClass={"feed"}/>)
     }
 }
 

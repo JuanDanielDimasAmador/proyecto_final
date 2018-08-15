@@ -4,6 +4,7 @@ const passport = require("passport");
 const router = express.Router();
 
 const validateCriticInput = require("../../validation/critic");
+const validateCommentInput = require("../../validation/comment");
 const Critic = require("../../models/critic");
 
 // @route   POST api/critics/
@@ -74,14 +75,18 @@ router.delete("/:id", passport.authenticate('jwt', {session: false}), (req,res) 
 //@desc     comentar una critica
 //@access   private
 router.post("/comment/:id",passport.authenticate('jwt', {session: false}), (req, res) => {
+    const { errors, isValid } = validateCommentInput(req.body);
+    if (!isValid){
+        return res.status(400).json(errors);
+    }
     Critic.findById(req.params.id).then(critic => {
         const newComment = {
             text: req.body.text,
             user: req.user.id
         };
         critic.comments.unshift(newComment);
-        critic.save().then(post => res.json(post));
-    }).catch(err => res.status(404).json(err));
+        critic.save().then(post => res.json(post)).catch(err => res.json(err));
+    }).catch(err => res.json(err));
 });
 
 //@route    POST api/critics/like/:id

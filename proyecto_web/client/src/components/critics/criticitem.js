@@ -21,43 +21,45 @@ class CriticItem extends Component{
     }
 
     render() {
-        const { post, auth } = this.props;
+        const { post, auth, cssClass, withActions } = this.props;
 
         let LikeAction = () => {
+            let liked = this.findUserLike(post.likes);
             return (
-                <span className={"icon__like"} onClick={this.onLikeClick.bind(this, post._id)}>
-                    <i className={ this.findUserLike(post.likes) ? "fas fa-heart green" : "fas fa-heart"}/>
-                    { post.likes.length > 0 ? post.likes.length : null }
-                </span>
+                <button className={liked ? "button button-like--liked" : "button button-like"} onClick={this.onLikeClick.bind(this, post._id)}>
+                    <i className={ liked ? "fas fa-heart icon-liked" : "fas fa-heart"}/>
+                    &nbsp;{ post.likes.length > 0 ? post.likes.length : null }
+                </button>
             )
         };
 
-        let deleteButton = auth.user.id === post.user
-            ? (
-                <button className="delete" onClick={this.onDeleteClick.bind(this,post._id)}>
-                    <i className="fas fa-times"/>
-                </button>
-            ) : null ;
+        let deleteButton = auth.user.id === post.user ? (
+            <button className="delete" onClick={this.onDeleteClick.bind(this,post._id)}>
+                <i className="fas fa-times"/>
+            </button>
+        ) : null ;
 
-        let FeedActions = () => {
+        let ItemActions = () => {
             if (auth.isAuthenticated) {
                 return(
-                    <div className="feed__item--actions">
+                    <div className={`${cssClass}__item--actions`}>
                         <LikeAction/>
-                        <Link to={`/post/${post._id}`} className="button button-small">Comentarios</Link>
                         { deleteButton }
                     </div>
                 )
             } else {
-                return <p className="feed__item--feedback">Inicie sesion para poder interactuar</p>;
+                return null;
             }
         };
 
         return (
-            <div className="feed__item">
-                <h2 className="feed__item--title">{post.title}<span className="feed__item--user">{post.nickname}</span></h2>
-                <p className="feed__item--text">{post.text}</p>
-                <FeedActions/>
+            <div className={`${cssClass}__item`}>
+                <h2 className={`${cssClass}__item--title`}>
+                    { cssClass === "critic" ? post.title : <Link to={`/criticas/${post._id}`} className={`feed__item--link`}>{post.title}</Link> }
+                    <span className={`${cssClass}__item--user`}>{post.nickname}</span>
+                </h2>
+                <p className={`${cssClass}__item--text`}>{post.text}</p>
+                { withActions ? <ItemActions/> : null }
             </div>
         );
     }
@@ -68,6 +70,10 @@ CriticItem.propTypes = {
     auth: PropTypes.object.isRequired,
     deletePost: PropTypes.func,
     likePost: PropTypes.func
+};
+
+CriticItem.defaultProps = {
+    withActions: true
 };
 
 const mapStateToProps = state => ({

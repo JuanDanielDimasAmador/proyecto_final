@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import {ADD_POST, DELETE_POST, GET_ERRORS, GET_POSTS, POST_LOADING} from "./types";
+import {ADD_POST, DELETE_POST, GET_ERRORS, GET_POSTS, POST_LOADING, GET_POST} from "./types";
 
 export const addPost = postData => dispatch => {
     axios.post("api/critics", postData).then(res =>
@@ -34,6 +34,25 @@ export const getPosts = () => dispatch => {
     );
 };
 
+export const getPost = (id) => dispatch => {
+    dispatch(setLoadingState());
+    axios
+        .get(`/api/critics/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_POST,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+                dispatch({
+                    type: GET_POST,
+                    payload: null
+                });
+            }
+        );
+};
+
 export const deletePost = id => dispatch => {
     axios.delete(`api/critics/${id}`).then(res =>
         dispatch({
@@ -49,7 +68,7 @@ export const deletePost = id => dispatch => {
 };
 
 export const likePost = id => dispatch => {
-    axios.post(`api/critics/like/${id}`)
+    axios.post(`/api/critics/like/${id}`)
         .then(res => dispatch(getPosts())).catch(err => dispatch({
             type: GET_ERRORS,
             payload: err.response.data
@@ -57,6 +76,19 @@ export const likePost = id => dispatch => {
     );
 };
 
+
+export const addComment = (commentData, postID) => dispatch => {
+    axios.post(`/api/critics/comment/${postID}`, commentData).then(res =>
+        dispatch({
+            type: GET_POST,
+            payload: res.data
+        })).catch(err =>
+        dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        })
+    );
+};
 
 export const setLoadingState = () => {
     return {

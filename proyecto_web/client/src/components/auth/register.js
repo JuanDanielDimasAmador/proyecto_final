@@ -29,7 +29,6 @@ class Register extends Component {
             name: '', email: '', password: '', password2: '', errors: {},
             isLoggedIn: false,
             userID: '',
-            name: '',
             picture: ''
         };
         this.onChange = this.onChange.bind(this);
