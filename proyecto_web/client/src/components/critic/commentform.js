@@ -55,7 +55,7 @@ class CommentForm extends Component {
         const { text, errors } = this.state;
         return (
             <div className="comment__form">
-                <div className="comment__form--container">
+                <div className="comment__form-container">
                     <form onSubmit={this.onSubmit} className="form" noValidate>
                         <TextAreaGroup
                             placeholder = "Haz un comentario"

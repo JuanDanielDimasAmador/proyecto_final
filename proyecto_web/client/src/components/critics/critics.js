@@ -18,15 +18,19 @@ class Critics extends Component {
         const { posts, loading } = this.props.critic,
             { auth } = this.props;
 
-        posts === null || loading
-            ? postContent = <h4>Loading...</h4>
-            : postContent = <CriticFeed posts={posts}/>;
+        if (posts === null || loading) {
+            postContent = <h4>Loading...</h4>
+        } else {
+            posts.length > 0 ?
+                postContent = <CriticFeed posts={posts}/> :
+                postContent = <h4>Aun no hay nada para mostrar. Comenta alguna de tus experiencias!s</h4>;
+        }
 
         return (
             <div className="feed">
                 { auth.isAuthenticated ? <CriticForm/> : null }
                 <div className="feed__container">
-                    {postContent}
+                    { postContent }
                 </div>
             </div>
         );
