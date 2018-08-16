@@ -82,10 +82,13 @@ router.post("/comment/:id",passport.authenticate('jwt', {session: false}), (req,
     Critic.findById(req.params.id).then(critic => {
         const newComment = {
             text: req.body.text,
-            user: req.user.id
+            user: req.user.id,
+            nickname: req.body.nickname
         };
         critic.comments.unshift(newComment);
-        critic.save().then(post => res.json(post)).catch(err => res.json(err));
+        critic.save()
+            .then(post => res.json(post))
+            .catch(err => res.json(err));
     }).catch(err => res.json(err));
 });
 

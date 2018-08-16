@@ -43,7 +43,8 @@ class CommentForm extends Component {
             nickname: user.nickname
         };
         this.setState({ text: '' });
-        this.props.addComment(newComment,postID)
+        this.props.addComment(newComment,postID);
+        console.log(newComment);
     }
 
     onChange(e) {
@@ -53,8 +54,8 @@ class CommentForm extends Component {
     render () {
         const { text, errors } = this.state;
         return (
-            <div className="comment">
-                <div className="comment__container">
+            <div className="comment__form">
+                <div className="comment__form--container">
                     <form onSubmit={this.onSubmit} className="form" noValidate>
                         <TextAreaGroup
                             placeholder = "Haz un comentario"

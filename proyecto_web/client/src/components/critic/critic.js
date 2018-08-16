@@ -7,6 +7,7 @@ import CriticItem from '../critics/criticitem';
 import CommentForm from './commentform';
 
 import { getPost } from "../../actions/criticactions";
+import CommentFeed from "./commentfeed";
 
 class Critic extends Component{
     componentDidMount() {
@@ -18,20 +19,36 @@ class Critic extends Component{
         const { post, loading } = this.props.critic,
             {auth} = this.props;
 
-        post === null || loading
-            ? postContent = <h4>Loading...</h4>
-            : postContent = [
+        if ( post === null || loading) {
+            postContent = <h4>Loading...</h4>;
+        } else if (post !== null && !loading) {
+            postContent = {
+                criticitem: <CriticItem key={post._id} post={post} cssClass={"critic"} withActions={false}/>,
+                commentform: <CommentForm postID={post._id}/>,
+                commentfeed: <CommentFeed comments={post.comments} postID={post._id}/>
+            };
+        } else {
+            postContent = [
                 <CriticItem key={post._id} post={post} cssClass={"critic"} withActions={false}/>,
                 <CommentForm postID={post._id}/>
             ];
+        }
+
+
+
 
         return(
             <div className="critic">
                 <div className="critic__container">
                     <Link to={"/criticas"} className="button button-small">Volver atras</Link>
-                    {postContent[0]}
+                    {postContent.criticitem}
                 </div>
-                { auth.isAuthenticated ? postContent[1] : null }
+                <div className="comment">
+                    { auth.isAuthenticated ? postContent.commentform : null }
+                    <div className="comment__feed">
+                        { post !== null ? postContent.commentfeed : null }
+                    </div>
+                </div>
             </div>
         );
     }
