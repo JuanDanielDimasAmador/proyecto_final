@@ -7,7 +7,6 @@ class CommentFeed extends Component {
     render() {
         const { comments, postID } = this.props;
         if (comments) {
-            console.log(comments);
             return comments.map(comment => <CommentItem comment={comment} postID={postID} key={comment._id} /> )
         } else {
             return <div className="hola">hola</div>
