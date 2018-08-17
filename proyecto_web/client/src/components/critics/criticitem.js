@@ -55,10 +55,11 @@ class CriticItem extends Component{
             <div className={`${cssClass}__item`}>
                 <h2 className={`${cssClass}__item--title`}>
                     { cssClass === "critic" ? post.title : <Link to={`/criticas/${post._id}`} className={`feed__item--link`}>{post.title}</Link> }
-                    <span className={`${cssClass}__item--user`}>{post.nickname}</span>
+                    &nbsp;<span className={`${cssClass}__item--user`}>Por:&nbsp;{post.nickname}</span>
+                    &nbsp;<span className={`${cssClass}__item--class`}>{post.classification}</span>
                 </h2>
                 <p className={`${cssClass}__item--text`}>{post.text}</p>
-                { withActions ? <ItemActions/> : null }
+                { withActions ? <ItemActions/>  : null }
             </div>
         );
     }

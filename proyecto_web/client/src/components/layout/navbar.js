@@ -7,6 +7,10 @@ import { clearCurrentProfile } from "../../actions/profileActions";
 
 class Navbar extends Component {
 
+    componentWillReceiveProps(newProps){
+
+    }
+
     onLogoutClick(e) {
         e.preventDefault();
         this.props.clearCurrentProfile();
@@ -58,10 +62,11 @@ class Navbar extends Component {
                 );
             },
             NavAuth = () => {
+                //<NavLink direction="dashboard" />
                 return (
                     <ul className="navbar__list">
                         <NavLink direction="criticas"/>
-                        <NavLink direction="dashboard" />
+
                         <NavLogout />
                     </ul>
 

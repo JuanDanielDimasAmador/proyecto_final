@@ -9,16 +9,16 @@ const TextFieldGroup = ({
             <div className="form__group--input">
                 <input type={ type }
                        autoComplete={ autoComplete }
-                       className={ error ? "form__input--invalid" : "form__input"}
+                       className={ error ? "form__input form__input--invalid" : "form__input form__input--valid"}
                        name={ name }
                        placeholder={ placeholder }
                        value={ value }
                        disabled={ disabled }
                        onChange = { onChange }
                 />
-                <span className={`form__input--icon ${icon}`} />
+                <span className={`form__input--icon`}><i className={icon}/></span>
             </div>
-            { error ? <div className="form__feedback--invalid">{ error }</div> : null }
+            { error ? <div className="form__feedback--invalid">{ error }</div> : <div className="form__feedback--valid">&nbsp;</div> }
         </div>
     );
 };

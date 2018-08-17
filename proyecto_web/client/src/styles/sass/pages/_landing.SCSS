@@ -27,6 +27,7 @@
     }
 
     &__search {
+        position: relative;
         height: 3rem;
         margin-bottom: $secondary-size;
         border: {
@@ -35,8 +36,22 @@
             color: $white-color;
             radius: 12px;
         }
+
+        &-icon {
+            height: 100%;
+            width: 2.5rem;
+            position: absolute;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-size: $default-sub;
+            color: $primary-dark;
+        }
+
         &-bar {
-            padding: 10px 2rem;
+            padding: 10px 2.5rem;
             height: 100%;
             width: 50vw;
             font-size: $default-sub;

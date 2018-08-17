@@ -8,7 +8,7 @@ const TextAreaGroup = ({
     return (
         <div className="form__group">
             <textarea
-                className={error ? "form__textarea--invalid" : "form__textarea"}
+                className={error ? "form__textarea form__textarea--invalid" : "form__textarea form__textarea--valid"}
                 placeholder={placeholder}
                 name={name}
                 value={value}

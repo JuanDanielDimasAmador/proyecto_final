@@ -8,7 +8,7 @@ class Landing extends Component {
         function HeroSearch () {
             return (
                 <div className="hero__search">
-                    <span className="hero__search-icon"/>
+                    <span className="hero__search-icon"><i className="fas fa-search" /></span>
                     <input className="hero__search-bar" type="text" placeholder="Intenta con 'La Cabba'"/>
                 </div>
             );

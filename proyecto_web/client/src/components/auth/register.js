@@ -85,6 +85,9 @@ class Register extends Component {
         return (
             <div className="register">
                 <div className="register__container">
+                    <span className="register__container--close">
+                        <i className="fas fa-times"/>
+                    </span>
                     <form onSubmit={this.onSubmit} className="form" noValidate>
                         <TextFieldGroup
                             placeholder="Ingrese su nombre" name="name" value={this.state.name}
@@ -107,7 +110,7 @@ class Register extends Component {
                             <Link to="/login" className="form__redirect--link">Inicia sesion</Link>
                         </span>
                     </form>
-                <div>{fbContent}</div>
+                    <div className="register__facebook">{fbContent}</div>
                 </div>
             </div>
         );

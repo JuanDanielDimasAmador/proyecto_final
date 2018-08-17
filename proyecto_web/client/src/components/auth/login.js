@@ -23,13 +23,15 @@ class Login extends Component {
 
     componentDidMount() {
         if (this.props.auth.isAuthenticated) {
-            this.props.history.push("/dashboard");
+            //this.props.history.push("/dashboard");
+            this.props.history.push("/criticas");
         }
     }
 
     componentWillReceiveProps(nextProps){
         if (nextProps.auth.isAuthenticated) {
-            this.props.history.push("/dashboard");
+            //this.props.history.push("/dashboard");
+            this.props.history.push("/criticas");
         }
 
         if (nextProps.errors) {
@@ -81,6 +83,9 @@ class Login extends Component {
         return (
             <div className="login">
                 <div className="login__container">
+                    <span className="login__container--close">
+                        <i className="fas fa-times"/>
+                    </span>
                     <form onSubmit={this.onSubmit} className="form" noValidate>
                         <TextFieldGroup
                             type="email" placeholder="Ingrese su correo electronico" name="email" value={this.state.email}
@@ -95,7 +100,7 @@ class Login extends Component {
                             <Link to="/register" className="form__redirect--link">Registrate</Link>
                         </span>
                     </form>
-                    <div>{fbContent}</div>
+                    <div className="login__facebook">{fbContent}</div>
                 </div>
             </div>
         );

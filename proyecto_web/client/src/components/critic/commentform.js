@@ -44,7 +44,6 @@ class CommentForm extends Component {
         };
         this.setState({ text: '' });
         this.props.addComment(newComment,postID);
-        console.log(newComment);
     }
 
     onChange(e) {
@@ -54,8 +53,11 @@ class CommentForm extends Component {
     render () {
         const { text, errors } = this.state;
         return (
-            <div className="comment__form">
-                <div className="comment__form-container">
+            <div className="comment-form">
+                <div className="comment-form__container">
+                     <span className="comment-form__container--close">
+                        <i className="fas fa-times"/>
+                    </span>
                     <form onSubmit={this.onSubmit} className="form" noValidate>
                         <TextAreaGroup
                             placeholder = "Haz un comentario"
