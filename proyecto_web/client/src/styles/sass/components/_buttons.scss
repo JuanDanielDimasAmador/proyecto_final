@@ -1,0 +1,47 @@
+.button {
+    display: inline-block;
+    background-color: $white-color;
+    color: $primary-main;
+    text:{
+        decoration: none;
+        align: center;
+    }
+    border:{
+        style: solid;
+        color: $primary-main;
+        width: 1px;
+    }
+
+    &-big {
+        padding: 0.7rem 4rem;
+        border-radius: 2rem 0;
+        font-size: $default-sub;
+    }
+
+    &-submit {
+        width: 70%;
+        padding: 0.5rem 2rem;
+        border-radius: 1.4rem 0;
+        font:{
+            weight: bold;
+            size: $default-size;
+        }
+        background-color: $primary-main;
+        color: $white-color;
+
+    }
+
+    &-small {
+        padding: 0.4rem 2rem;
+        border-radius: 1.3rem 0;
+        font-size: $small-size;
+    }
+
+    &-like,&-delete {
+        padding: 0.2rem 0.4rem;
+        border-radius: 0.9rem 2px;
+        &.liked {
+            color: $error-main;
+        }
+    }
+}

@@ -5,7 +5,11 @@
 
 
 @import "layout/_navigation";
+@import "layout/_footer";
 
-@import "components/_login";
+@import "components/_buttons";
+@import "components/form";
+
+@import "pages/_landing";
 
 

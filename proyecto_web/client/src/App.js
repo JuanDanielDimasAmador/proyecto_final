@@ -42,7 +42,7 @@ if (localStorage.jwtToken) {
         //eliminar sesion
         store.dispatch(logoutUser());
         store.dispatch(clearCurrentProfile());
-        window.location.href = '/login';
+        window.location.href = '/';
     }
 }
 

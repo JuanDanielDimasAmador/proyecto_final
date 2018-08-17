@@ -26,15 +26,14 @@ class CriticItem extends Component{
         let LikeAction = () => {
             let liked = this.findUserLike(post.likes);
             return (
-                <button className={liked ? "button button-like--liked" : "button button-like"} onClick={this.onLikeClick.bind(this, post._id)}>
+                <button className={liked ? "button button-like liked" : "button button-like"} onClick={this.onLikeClick.bind(this, post._id)}>
                     <i className={ liked ? "fas fa-heart icon-liked" : "fas fa-heart"}/>
-                    &nbsp;{ post.likes.length > 0 ? post.likes.length : null }
                 </button>
             )
         };
 
         let deleteButton = auth.user.id === post.user ? (
-            <button className="delete" onClick={this.onDeleteClick.bind(this,post._id)}>
+            <button className="button button-delete" onClick={this.onDeleteClick.bind(this,post._id)}>
                 <i className="fas fa-times"/>
             </button>
         ) : null ;

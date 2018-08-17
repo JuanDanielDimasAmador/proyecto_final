@@ -7,7 +7,7 @@ class Footer extends Component {
             <div className="footer">
                 <div className="footer__expression">
                     <h3 className="footer__expression--title">¿Necesitas ayuda? Aqui puedes expresar tu incomodidad libremente</h3>
-                    <Link to={"/"} className="button button-big">Quiero contar algo</Link>
+                    <Link to={"/criticas"} className="button button-big">Quiero contar algo</Link>
                 </div>
                 <div className="footer__links">
                     <div className="footer__links--collection">
