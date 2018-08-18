@@ -12,7 +12,7 @@ module.exports = ValidateRegisterPlaceInput = (data) => {
 
     data.name = !isEmpty(data.name) ? data.name: "";
     data.type = !isEmpty(data.type) ? data.type: "";
-    data.direction = !isEmpty(data.location) ? data.location: "";
+    data.direction = !isEmpty(data.direction) ? data.direction: "";
 
     if (!Validator.isLength(data.name, {min: 2, max: 50})) errors.name = "El nombre debe de contener entre 2 y 50 caracteres";
 
