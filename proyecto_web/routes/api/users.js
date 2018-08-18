@@ -105,6 +105,45 @@ router.post("/login", (req,res) => {
                 })
         })
 });
+
+//@route    POST/api/users/facebook
+//@desc     Register a Facebook user
+//@access   public
+router.post("/facebook", (req,res) => {
+    const nick = Nickname;
+    //Busca al usuario en base al email
+    User.findOne({email: req.body.email}).then(user =>{
+        //Si existe, retorna un token
+        if(user){
+            const payload = {id: user.id, nickname: user.nickname};
+            jwt.sign(
+                payload, keys.secretOrKey, { expiresIn: 3600},
+                (err, token) =>{
+                    //Si hubo un error, se muestra, de no ser así, envia el token
+                    res.json({ succes: true, token: 'Bearer ' + token });
+                });
+        } else {
+            //Si no existe, se crea el objeto
+            const newUser = new User({
+                nickname: nick,
+                name: req.body.name,
+                facebook_id: req.body.id,
+                email: req.body.email
+            });
+            newUser.save().then(nUser => {
+                const payload = {id: nUser.id, nickname: nUser.nickname};
+                jwt.sign(
+                    payload, keys.secretOrKey, { expiresIn: 3600},
+                    (err, token) =>{
+                        //Si hubo un error, se muestra, de no ser así, envia el token
+                        res.json({ succes: true, token: 'Bearer ' + token });
+                    });
+            }).catch(err => console.log(err));
+        }
+    }).catch(err => res.json(err));
+});
+
+
 // @route   GET api/users/current
 // @desc    return the current user
 // @access  private

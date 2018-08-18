@@ -12,6 +12,7 @@ const PlaceSchema = new Schema({
     direction: { type: String },
     place_id: { type: String },
     image: { type: String },
+    registedby: { type: String },
     ratings: [{
         user: {  type: Schema.Types.ObjectId, ref: "users" },
         nickname: { type: String },
