@@ -7,31 +7,14 @@ import { connect } from 'react-redux';
 import TextFieldGroup from '../common/textfieldgroup';
 
 import { registerUser } from "../../actions/authactions";
-import { registerUserFb } from "../../actions/authactions";
+import { connectUserFb } from "../../actions/authactions";
 
 class Register extends Component {
-
-    responseFacebook = response =>{
-        console.log(response);
-        this.setState({
-            isLoggedIn: true,
-            userID: response.userID,
-            name: response.name,
-            email: response.email,
-            picture: response.picture.data.url
-        });
-        this.props.registerUserFb(response);
-    };
-
-    componetClicked = () => console.log("Clicked");
 
     constructor() {
         super();
         this.state = {
-            name: '', email: '', password: '', password2: '', errors: {},
-            isLoggedIn: false,
-            userID: '',
-            picture: ''
+            name: '', email: '', password: '', password2: '', errors: {}, facebook_id: '', isLoggedIn: false
         };
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
@@ -43,7 +26,15 @@ class Register extends Component {
         }
     }
 
+    componentClicked() {
+        console.log("clicked");
+    }
+
     componentWillReceiveProps(nextProps){
+        if (nextProps.auth.isAuthenticated) {
+            //this.props.history.push("/dashboard");
+            this.props.history.push("/criticas");
+        }
         if (nextProps.errors) {
             this.setState({errors: nextProps.errors})
         }
@@ -66,21 +57,33 @@ class Register extends Component {
 
     }
 
+    responseFacebook = response =>{
+        this.setState({
+            isLoggedIn: true,
+            facebook_id: response.userID,
+            name: response.name,
+            email: response.email,
+        });
+        if (this.state.isLoggedIn){
+            const fbUser = {
+                name: this.state.name,
+                email: this.state.email,
+                facebook_id: this.state.facebook_id
+            };
+            this.props.connectUserFb(fbUser);
+        }
+    };
+
+
+
     render () {
         //Login with Facebook
-        let fbContent;
-        if (this.state.isLoggedIn) {
-            //this.props.history.push("/dashboard");
-        } else {
-            fbContent = (<FacebookLogin
+        let fbContent = <FacebookLogin
             appId="275945779853061"
             autoLoad={true}
             fields="name,email,picture"
-            onClick={this.componentClicked}
-            callback={this.responseFacebook}/>
-
-            );
-        }
+            onClick={this.componentClicked.bind(this)}
+            callback={this.responseFacebook}/>;
 
         const { errors } = this.state;
 
@@ -121,7 +124,7 @@ class Register extends Component {
 
 Register.propTypes = {
     registerUser: PropTypes.func.isRequired,
-    registerUserFb: PropTypes.func,
+    connectUserFb: PropTypes.func,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object
 };
@@ -132,5 +135,5 @@ const mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, {registerUser, registerUserFb})(withRouter(Register));
+export default connect(mapStateToProps, {registerUser, connectUserFb})(withRouter(Register));
 

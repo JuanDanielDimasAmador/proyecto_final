@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 import TextFieldGroup from '../common/textfieldgroup';
 import { loginUser } from "../../actions/authactions";
-import { loginUserFb } from "../../actions/authactions";
+import { connectUserFb } from "../../actions/authactions";
 
 class Login extends Component {
 
@@ -53,33 +53,32 @@ class Login extends Component {
        this.props.loginUser(userData);
     }
 
-    responseFacebook = response => {
-        console.log(response);
+    responseFacebook = response =>{
         this.setState({
             isLoggedIn: true,
-            userID: response.userID,
+            facebook_id: response.userID,
             name: response.name,
             email: response.email,
         });
-        this.props.loginUserFb(response);
+        if (this.state.isLoggedIn){
+            const fbUser = {
+                name: this.state.name,
+                email: this.state.email,
+                facebook_id: this.state.facebook_id
+            };
+            this.props.connectUserFb(fbUser);
+        }
     };
 
 
     render() {
         //Login with Facebook
-        let fbContent;
-        if (this.state.isLoggedIn) {
-            //this.props.history.push("/dashboard");
-        } else {
-            fbContent = (<FacebookLogin
+        let fbContent = <FacebookLogin
             appId="275945779853061"
             autoLoad={true}
             fields="name,email,picture"
-            onClick={this.componentClicked}
-            callback={this.responseFacebook}/>
-
-            );
-        }
+            onClick={this.componentClicked.bind(this)}
+            callback={this.responseFacebook}/>;
 
         const { errors } = this.state;
         return (
@@ -111,7 +110,7 @@ class Login extends Component {
 
 Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
-    loginUserFb: PropTypes.func,
+    connectUserFb: PropTypes.func,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object
 };
@@ -121,4 +120,4 @@ const mapStateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(mapStateToProps, { loginUser, loginUserFb} )(Login);
+export default connect(mapStateToProps, { loginUser, connectUserFb} )(Login);

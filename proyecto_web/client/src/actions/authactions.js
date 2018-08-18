@@ -19,8 +19,8 @@ export const registerUser = (userData,history) => dispatch =>{
 };
 
 //register with FB
-export const registerUserFb = (userData,history) => dispatch =>{
-    axios.post('api/users_fb/registerfb', userData)
+export const connectUserFb = (userData) => dispatch =>{
+    axios.post('api/users/facebook', userData)
         .then(res =>{
             console.log(res.data);
             //save token to local storage and set it to a header
@@ -50,24 +50,6 @@ export const loginUser = userData => dispatch => {
             dispatch(setCurrentUser(decoded));
         })
         .catch( err => dispatch({
-            type: GET_ERRORS,
-            payload: err.response.data
-        }));
-};
-
-//login with FB
-export const loginUserFb = userData => dispatch => {
-    axios.post('api/users_fb/loginfb', userData)
-        .then(res => {
-            //save token to local storage and set it to a header
-            const { token } = res.data;
-            localStorage.setItem('jwtToken', token);
-            setAuthToken(token);
-            //decode token and set current user
-            const decoded = jwt_decode(token);
-            dispatch(setCurrentUser(decoded));
-        })
-        .catch (err => dispatch({
             type: GET_ERRORS,
             payload: err.response.data
         }));
