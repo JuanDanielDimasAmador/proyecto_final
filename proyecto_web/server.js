@@ -9,7 +9,6 @@ const passport = require("passport");
 const users = require("./routes/api/users");
 const profile = require("./routes/api/profile");
 const critics =require("./routes/api/critics");
-const users_fb = require("./routes/api/users_fb");
 const places = require("./routes/api/places");
 
 //initialize
@@ -33,7 +32,6 @@ mongoose.connect(db, {useNewUrlParser:true} ).then(() => console.log("Connected"
 app.use("/api/users",users);
 app.use("/api/profile", profile);
 app.use("/api/critics", critics);
-app.use("/api/users_fb", users_fb);
 app.use("/api/places", places);
 
 //using static files
