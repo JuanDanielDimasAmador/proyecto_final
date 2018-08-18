@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 
 import TextFieldGroup from '../common/textfieldgroup';
 import { loginUser } from "../../actions/authactions";
+import { loginUserFb } from "../../actions/authactions";
 
 class Login extends Component {
 
@@ -60,6 +61,7 @@ class Login extends Component {
             name: response.name,
             email: response.email,
         });
+        this.props.loginUserFb(response);
     };
 
 
@@ -67,7 +69,7 @@ class Login extends Component {
         //Login with Facebook
         let fbContent;
         if (this.state.isLoggedIn) {
-            this.props.history.push("/dashboard");
+            //this.props.history.push("/dashboard");
         } else {
             fbContent = (<FacebookLogin
             appId="275945779853061"
@@ -109,6 +111,7 @@ class Login extends Component {
 
 Login.propTypes = {
     loginUser: PropTypes.func.isRequired,
+    loginUserFb: PropTypes.func,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object
 };
@@ -118,4 +121,4 @@ const mapStateToProps = (state) => ({
     errors: state.errors
 });
 
-export default connect(mapStateToProps, { loginUser} )(Login);
+export default connect(mapStateToProps, { loginUser, loginUserFb} )(Login);

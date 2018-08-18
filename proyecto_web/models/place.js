@@ -9,6 +9,7 @@ const PlaceSchema = new Schema({
         lat: { type: Number },
         direction: { type: String }
     },
+    direction: { type: String },
     place_id: { type: String },
     image: { type: String },
     ratings: [{

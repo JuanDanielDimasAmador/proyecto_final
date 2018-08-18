@@ -7,6 +7,7 @@ import { connect } from 'react-redux';
 import TextFieldGroup from '../common/textfieldgroup';
 
 import { registerUser } from "../../actions/authactions";
+import { registerUserFb } from "../../actions/authactions";
 
 class Register extends Component {
 
@@ -19,6 +20,7 @@ class Register extends Component {
             email: response.email,
             picture: response.picture.data.url
         });
+        this.props.registerUserFb(response);
     };
 
     componetClicked = () => console.log("Clicked");
@@ -68,7 +70,7 @@ class Register extends Component {
         //Login with Facebook
         let fbContent;
         if (this.state.isLoggedIn) {
-            this.props.history.push("/dashboard");
+            //this.props.history.push("/dashboard");
         } else {
             fbContent = (<FacebookLogin
             appId="275945779853061"
@@ -119,6 +121,7 @@ class Register extends Component {
 
 Register.propTypes = {
     registerUser: PropTypes.func.isRequired,
+    registerUserFb: PropTypes.func,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object
 };
@@ -129,5 +132,5 @@ const mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, {registerUser})(withRouter(Register));
+export default connect(mapStateToProps, {registerUser, registerUserFb})(withRouter(Register));
 
