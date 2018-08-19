@@ -11,8 +11,14 @@ class Places extends Component {
     }
 
     render() {
+        
         return (
-            <div className="hola">Chinga tu madre</div>
+            <div className="feed">
+                
+                <div className="feed__container">
+                    
+                </div>
+            </div>
         )
     }
 }
