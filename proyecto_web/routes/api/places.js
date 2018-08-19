@@ -51,7 +51,8 @@ router.post("/",passport.authenticate('jwt', {session: false}), (req,res) => {
     const newPlace = new Place({
         name: req.body.name,
         type: req.body.type,
-        direction: req.body.direction,
+        location: {direction:req.body.direction},
+        description: req.body.description,
         registedby: req.user.id
     });
     newPlace.save()

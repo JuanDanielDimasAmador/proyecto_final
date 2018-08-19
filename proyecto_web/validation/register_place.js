@@ -13,6 +13,7 @@ module.exports = ValidateRegisterPlaceInput = (data) => {
     data.name = !isEmpty(data.name) ? data.name: "";
     data.type = !isEmpty(data.type) ? data.type: "";
     data.direction = !isEmpty(data.direction) ? data.direction: "";
+    data.description = !isEmpty(data.description) ? data.description: "";
 
     if (!Validator.isLength(data.name, {min: 2, max: 50})) errors.name = "El nombre debe de contener entre 2 y 50 caracteres";
 
@@ -25,6 +26,10 @@ module.exports = ValidateRegisterPlaceInput = (data) => {
     if (!Validator.isLength(data.direction, {min: 2, max: 50})) errors.direction = "El nombre debe de contener entre 2 y 50 caracteres";
 
     if (Validator.isEmpty(data.direction)) errors.direction = "Campo requerido";
+
+    if (!Validator.isLength(data.description, {min: 2, max: 50})) errors.description = "El nombre debe de contener entre 2 y 50 caracteres";
+
+    if (Validator.isEmpty(data.description)) errors.description = "Campo requerido";
 
     return {
         errors,
