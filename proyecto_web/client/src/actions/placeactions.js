@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import {GET_PLACE, GET_PLACES, PLACE_LOADING, ADD_PLACE, DELETE_PLACE, GET_ERRORS, GET_POSTS} from "./types";
 
-export const addPlace = placeData => dispatch => {
+export const addPlace = (placeData) => dispatch => {
     axios.post("api/places", placeData).then(res => {
         dispatch({
             type: ADD_PLACE,
@@ -12,7 +12,7 @@ export const addPlace = placeData => dispatch => {
     }).catch(err => {
         dispatch({
             type: GET_ERRORS,
-            payload: null
+            payload: err.response.data
         });
         console.log(err)
     })

@@ -18,7 +18,6 @@ class PlaceForm extends Component{
             registedBy: '',  
             errors: {}
         };
-
         this.onChange = this.onChange.bind(this);
         this.onSubmit = this.onChange.bind(this);
     }
@@ -63,7 +62,7 @@ class PlaceForm extends Component{
     }
 
     render () {
-        const { name, type, description, direction, errors } = this.state;
+        const { name, description, type, direction, errors } = this.state;
         return (
             <div className="post-critic">
                 <div className="post-critic__container">
@@ -76,33 +75,29 @@ class PlaceForm extends Component{
                             name = "name"
                             value = {name}
                             onChange = {this.onChange}
-                            autoComplete = "name"
                             error = {errors.name}
                         />
-
-                        <TextFieldGroup
-                            placeholder = "Ingrese un tipo"
-                            name = "type"
-                            value = {type}
-                            onChange = {this.onChange}
-                            autoComplete = "name"
-                            error = {errors.name}
-                        />
-
-                        <TextAreaGroup
-                            placeholder = "Describe el lugar..."
-                            name="description"
-                            value={description}
-                            onChange={this.onChange}
-                            error={errors.text}
-                        />
- 
                         <TextAreaGroup
                             placeholder = "¿Cuál es la dirección del lugar?"
                             name="direction"
                             value={direction}
                             onChange={this.onChange}
-                            error={errors.text}
+                            error={errors.direction}
+                        />
+                        <TextFieldGroup
+                            placeholder = "Ingrese un tipo"
+                            name = "type"
+                            value = {type}
+                            onChange = {this.onChange}
+                            error = {errors.name}
+                        />
+                
+                        <TextAreaGroup
+                            placeholder = "Describe el lugar..."
+                            name="description"
+                            value={description}
+                            onChange={this.onChange}
+                            error={errors.description}
                         />
                         <input type="submit" className="button button-submit"/>
                     </form>
