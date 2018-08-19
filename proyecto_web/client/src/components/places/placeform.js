@@ -52,8 +52,8 @@ class PlaceForm extends Component{
         this.setState({ name: '', 
                         type: '', 
                         description: '', 
-                        location: { direction: '' }, 
-                        registedBy: '' });
+                        location: { direction: '' }
+                    });
         
     }
 
@@ -69,21 +69,15 @@ class PlaceForm extends Component{
                     <span className="post-critic__container--close">
                         <i className="fas fa-times"/>
                     </span>
-                    <form onSubmit={this.onSubmit} className="form" noValidate>
+                    <form onSubmit={this.onSubmit} className="form">
                         <TextFieldGroup
-                            placeholder = "Ingrese un nombre"
+                            placeholder = "Ingresa el nombre del establecimiento."
                             name = "name"
                             value = {name}
                             onChange = {this.onChange}
                             error = {errors.name}
                         />
-                        <TextAreaGroup
-                            placeholder = "¿Cuál es la dirección del lugar?"
-                            name="direction"
-                            value={direction}
-                            onChange={this.onChange}
-                            error={errors.direction}
-                        />
+
                         <TextFieldGroup
                             placeholder = "Ingrese un tipo"
                             name = "type"
@@ -99,6 +93,15 @@ class PlaceForm extends Component{
                             onChange={this.onChange}
                             error={errors.description}
                         />
+
+                        <TextAreaGroup
+                            placeholder = "¿Cuál es la dirección del lugar?"
+                            name="direction"
+                            value={direction}
+                            onChange={this.onChange}
+                            error={errors.direction}
+                        />
+
                         <input type="submit" className="button button-submit"/>
                     </form>
                 </div>
