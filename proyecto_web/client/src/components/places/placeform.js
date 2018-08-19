@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import TextAreaGroup from '../common/textareagroup';
@@ -7,14 +7,16 @@ import TextFieldGroup from '../common/textfieldgroup';
 
 import { addPlace } from '../../actions/placeactions';
 
-
-
-
 class PlaceForm extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            name: '', type: '', address: '', registedBy: '',  errors: {}
+            name: '', 
+            type: '', 
+            location: {direction: ''}, 
+            description: '', 
+            registedBy: '',  
+            errors: {}
         };
 
         this.onChange = this.onChange.bind(this);
@@ -22,11 +24,17 @@ class PlaceForm extends Component{
     }
 
     componentDidMount() {
-        if (!nextProps.auth.isAuthenticated) {
+        if (!this.props.auth.isAuthenticated) {
             this.props.history.push('/login');
         }
+    }
 
-        if (nextProps.errors) { 
+    componentWillReceiveProps(nextProps){
+        if (!nextProps.auth.isAuthenticated) {
+            this.props.history.push("/login");
+        }
+
+        if (nextProps.errors) {
             this.setState({errors: nextProps.errors})
         }
     }
@@ -37,51 +45,62 @@ class PlaceForm extends Component{
         const newPlace = {
             name: this.state.name,
             type: this.state.type,
-            direction: this.state.direction,
+            description: this.state.description,
+            location: {direction: this.state.direction},
             registedBy: user.id
         };
-
-        this.setState({ name: '', type: '', address: '', registedBy: '' });
-        this.props.add(newPlace);
+        this.props.addPlace(newPlace);
+        this.setState({ name: '', 
+                        type: '', 
+                        description: '', 
+                        location: { direction: '' }, 
+                        registedBy: '' });
+        
     }
 
     onChange(e) {
-        this.setState( { [e.target.name]: e.target.value, [e.target.type]: e.target.value, [e.target.address]: e.target.value, errors: {} } )
+        this.setState( { [e.target.name]: e.target.value, errors: {} } );
     }
 
     render () {
-        const { text, errors } = this.state;
+        const { name, type, description, direction, errors } = this.state;
         return (
-            <div className="comment-form">
-                <div className="comment-form__container">
-                    <span className="comment-form__container--close">
+            <div className="post-critic">
+                <div className="post-critic__container">
+                    <span className="post-critic__container--close">
                         <i className="fas fa-times"/>
                     </span>
                     <form onSubmit={this.onSubmit} className="form" noValidate>
                         <TextFieldGroup
                             placeholder = "Ingrese un nombre"
                             name = "name"
-                            value = {this.state.name}
+                            value = {name}
                             onChange = {this.onChange}
                             autoComplete = "name"
                             error = {errors.name}
                         />
 
-                        <Combobox
+                        <TextFieldGroup
+                            placeholder = "Ingrese un tipo"
                             name = "type"
-                            value = {this.state.type}
+                            value = {type}
                             onChange = {this.onChange}
-                            error = {errors.type}
-                            placeholder = "Seleccione un tipo de establecimiento"
-                            data={[
-                                'Bar',
-                                'Centro Nocturno'
-                            ]}
+                            autoComplete = "name"
+                            error = {errors.name}
                         />
+
                         <TextAreaGroup
-                            placeholder = "Escribe una descripción..."
+                            placeholder = "Describe el lugar..."
+                            name="description"
+                            value={description}
+                            onChange={this.onChange}
+                            error={errors.text}
+                        />
+ 
+                        <TextAreaGroup
+                            placeholder = "¿Cuál es la dirección del lugar?"
                             name="direction"
-                            value={this.state.direction}
+                            value={direction}
                             onChange={this.onChange}
                             error={errors.text}
                         />
@@ -93,10 +112,10 @@ class PlaceForm extends Component{
     }
 }
 
-PlaceForm.PropTypes = {
-    auth: PropTypes.object.isRequired,
-    errors: PropTypes.object,
-    addPlace: PropTypes.func.isRequired
+PlaceForm.propTypes = {
+    addPlace: propTypes.func.isRequired,
+    auth: propTypes.object.isRequired,
+    errors: propTypes.object  
 };
 
 const mapStateToProps = state => ({
@@ -104,4 +123,4 @@ const mapStateToProps = state => ({
     errors: state.errors
 });
 
-export default connect(mapStateToProps, {addPlace})(PlaceForm);
+export default connect(mapStateToProps, { addPlace })(PlaceForm);

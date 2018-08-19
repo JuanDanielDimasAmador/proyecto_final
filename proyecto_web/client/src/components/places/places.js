@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 
 import { getPlaces } from "../../actions/placeactions";
 
+import PlaceForm from './placeform';
+import PlaceFeed from './placefeed';
+
 class Places extends Component {
 
     componentDidMount() {
@@ -11,12 +14,23 @@ class Places extends Component {
     }
 
     render() {
+        let placeCotent;
+        const { places, loading } = this.props.place,
+            { auth } = this.props;
+
+        if (places === null || loading) {
+            placeCotent = <h4 className={"feed__loading"}>Loading...</h4>
+        } else {
+            places.length > 0 ?
+                placeCotent = <PlaceFeed places = {places} /> : 
+                placeCotent = <h4 className="feed__empty">Aun no hay algún lugar para mostrar...</h4>;
+        }
         
         return (
             <div className="feed">
-                
+                {auth.isAuthenticated ? <PlaceForm/> : null }
                 <div className="feed__container">
-                    
+                    {placeCotent}
                 </div>
             </div>
         )
