@@ -4,14 +4,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import PlaceItem from '../places/placeitem';
-import  CriticForm  from '../critics/criticform';
 
 import { getPlace } from "../../actions/placeactions";
-import  CriticFeed  from "../critics/criticfeed";
+
 
 class Place extends Component{
     componentDidMount(){
-        this.props.getPlace(this.props.match.params.id);        
+        this.props.getPlace(this.props.match.params.id);     
+
     }
 
     render(){
@@ -24,38 +24,34 @@ class Place extends Component{
         } else if (place !== null && !loading) {
             placeContent = {
                 placeitem: <PlaceItem key={place._id} place = {place} cssClass={"place"} withActions={false}/>,
-                //criticform: <CriticForm postID={place._id}/>,
-                //criticfeed: <CriticFeed critics={place.critics} postID={place._id}/>
             };
         } else {
             placeContent = [
                 <PlaceItem key={place._id} place={place} cssClass={"place"} withActions={false}/>,
-                //<CriticForm placeID={place._id}/>
             ];
 
         }
 
         return(
-            <div className="place">
-                <div className="place__container">
+            <div className="comment">
+                <div className="comment__container">
                     <Link to={"/lugares"} className="button button-small">Volver atras</Link>
                     {placeContent.placeitem}
                 </div>
             </div>
         )
-
     }
 }
 
 Place.propTypes = {
     getPlace: PropTypes.func,
-    critic: PropTypes.object,
+    place: PropTypes.object,
     auth: PropTypes.object
 };
 
 const mapStateToProps = state => ({
     auth: state.auth,
-    critic: state.critic
+    place: state.place
 });
 
 export default connect(mapStateToProps, { getPlace }) (Place);
