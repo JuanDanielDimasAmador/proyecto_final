@@ -4,15 +4,14 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import PlaceItem from '../places/placeitem';
-import { CriticForm } from '../critic/commentform';
+import  CriticForm  from '../critics/criticform';
 
 import { getPlace } from "../../actions/placeactions";
-import { CriticFeed } from "../critic/commentfeed";
+import  CriticFeed  from "../critics/criticfeed";
 
 class Place extends Component{
     componentDidMount(){
-        this.props.getPlace(this.props.match.params.id);
-        console.log(this.props.match.params.id);
+        this.props.getPlace(this.props.match.params.id);        
     }
 
     render(){
@@ -25,14 +24,14 @@ class Place extends Component{
         } else if (place !== null && !loading) {
             placeContent = {
                 placeitem: <PlaceItem key={place._id} place = {place} cssClass={"place"} withActions={false}/>,
-                criticform: <CriticForm postID={place._id}/>,
-                criticfeed: <CriticFeed comments={place.critics} postID={place._id}/>
+                //criticform: <CriticForm postID={place._id}/>,
+                //criticfeed: <CriticFeed critics={place.critics} postID={place._id}/>
             };
         } else {
             placeContent = [
                 <PlaceItem key={place._id} place={place} cssClass={"place"} withActions={false}/>,
-                <CriticForm placeID={place._id}/>
-            ]
+                //<CriticForm placeID={place._id}/>
+            ];
 
         }
 
@@ -41,12 +40,6 @@ class Place extends Component{
                 <div className="place__container">
                     <Link to={"/lugares"} className="button button-small">Volver atras</Link>
                     {placeContent.placeitem}
-                </div>
-                <div className="critic">
-                    { auth.isAuthenticated ? placeContent.criticform : null }
-                    <div className="critic__feed">
-                        { place !== null ? placeContent.criticfeed : null }
-                    </div>
                 </div>
             </div>
         )

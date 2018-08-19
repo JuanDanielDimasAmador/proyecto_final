@@ -16,6 +16,7 @@ import Dashboard from './components/dashboard/dashboard';
 import Critics from './components/critics/critics';
 import Critic from './components/critic/critic';
 import Places from './components/places/places';
+import Place from './components/place/place';
 
 import PrivateRoute from './components/common/privateroute';
 
@@ -61,6 +62,7 @@ class App extends Component {
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Register}/>
                         <Route exact path="/criticas/:id" component={Critic}/>
+                        <Route exact path="/lugares/:id" component={Place}/>
                         <Switch>
                             <PrivateRoute exact path="/dashboard" component={Dashboard}/>
                         </Switch>
