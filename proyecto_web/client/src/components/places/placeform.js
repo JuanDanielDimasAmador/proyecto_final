@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import TextAreaGroup from '../common/textareagroup';
@@ -19,7 +19,7 @@ class PlaceForm extends Component{
             errors: {}
         };
         this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     componentDidMount() {
@@ -45,14 +45,14 @@ class PlaceForm extends Component{
             name: this.state.name,
             type: this.state.type,
             description: this.state.description,
-            location: {direction: this.state.direction},
+            direction: this.state.direction,
             registedBy: user.id
         };
         this.props.addPlace(newPlace);
         this.setState({ name: '', 
                         type: '', 
                         description: '', 
-                        location: { direction: '' }
+                        direction: '' 
                     });
         
     }
@@ -110,10 +110,10 @@ class PlaceForm extends Component{
     }
 }
 
-PlaceForm.propTypes = {
-    addPlace: propTypes.func.isRequired,
-    auth: propTypes.object.isRequired,
-    errors: propTypes.object  
+PlaceForm.PropTypes = {
+    addPlace: PropTypes.func,
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object  
 };
 
 const mapStateToProps = state => ({

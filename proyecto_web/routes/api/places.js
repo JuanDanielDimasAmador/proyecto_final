@@ -53,7 +53,8 @@ router.post("/",passport.authenticate('jwt', {session: false}), (req,res) => {
         type: req.body.type,
         location: {direction:req.body.direction},
         description: req.body.description,
-        registedby: req.user.id
+        registedby: req.user.id,
+        
     });
     newPlace.save()
         .then(place => res.json(place))
