@@ -7,9 +7,9 @@ class PlaceFeed extends Component {
     render() {
         const { places } = this.props;
         if (places) {
-            return places.map(place => <PlaceItem place={place} key={place._id} /> )
+            return places.map(place => <PlaceItem key={place._id} place={place} cssClass={"feed"} /> )
         } else {
-            return <div className="hola">hola</div>
+            return <div className="hola">hola</div>            
         }
     }
 }
