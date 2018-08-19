@@ -56,7 +56,7 @@ class CriticForm extends Component {
         return (
             <div className="post-critic">
                 <div className="post-critic__container">
-                     <span className="post-critic__container--close">
+                    <span className="post-critic__container--close">
                         <i className="fas fa-times"/>
                     </span>
                     <form onSubmit={this.onSubmit} className="form" noValidate>

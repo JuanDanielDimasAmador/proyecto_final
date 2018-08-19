@@ -15,6 +15,7 @@ import Login from './components/auth/login';
 import Dashboard from './components/dashboard/dashboard';
 import Critics from './components/critics/critics';
 import Critic from './components/critic/critic';
+import Places from './components/places/places';
 
 import PrivateRoute from './components/common/privateroute';
 
@@ -56,6 +57,7 @@ class App extends Component {
                         <Navbar />
                         <Route exact path="/" component={Landing}/>
                         <Route exact path="/criticas" component={Critics}/>
+                        <Route exact path="/lugares" component={Places}/>
                         <Route exact path="/login" component={Login}/>
                         <Route exact path="/register" component={Register}/>
                         <Route exact path="/criticas/:id" component={Critic}/>

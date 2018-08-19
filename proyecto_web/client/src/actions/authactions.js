@@ -21,8 +21,7 @@ export const registerUser = (userData,history) => dispatch =>{
 //register with FB
 export const connectUserFb = (userData) => dispatch =>{
     axios.post('api/users/facebook', userData)
-        .then(res =>{
-            console.log(res.data);
+        .then(res => {
             //save token to local storage and set it to a header
             const { token } = res.data;
             localStorage.setItem('jwtToken',token);

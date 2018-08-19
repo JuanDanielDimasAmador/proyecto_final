@@ -55,6 +55,18 @@ router.get("/:id", (req,res) => {
         .catch(err => res.status(404). json(err));
 });
 
+//@route    api/critics/place/id
+//@desc     get critics by place
+//@access   public
+router.get("/place/:id", (req, res) => {
+    const errors = {},
+        {id} = req.params;
+    Critic.find({ place: id }).then(critics => {
+        errors.noCritics = "no existe ninguna critica";
+        critics ? res.json(critics) : res.status(404).json(errors)
+    }).catch(err => res.status(404). json(err));
+});
+
 //@route    DELETE api/critics/:id
 //@desc     borrar critica
 //@access   private

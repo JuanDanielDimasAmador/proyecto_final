@@ -55,6 +55,7 @@ class Navbar extends Component {
                 return (
                     <ul className="navbar__list">
                         <NavLink direction="criticas"/>
+                        <NavLink direction="lugares"/>
                         <NavLink direction="login" />
                         <NavLink direction="register" />
                     </ul>
@@ -66,7 +67,7 @@ class Navbar extends Component {
                 return (
                     <ul className="navbar__list">
                         <NavLink direction="criticas"/>
-
+                        <NavLink direction="lugares"/>
                         <NavLogout />
                     </ul>
 
