@@ -4,14 +4,16 @@ import { connect } from 'react-redux';
 
 import TextAreaGroup from '../common/textareagroup';
 import TextFieldGroup from '../common/textfieldgroup';
+import DataListGroup from '../common/datalistgroup';
 
 import { addPost } from "../../actions/criticactions";
+import { getPlaces } from "../../actions/placeactions";
 
 class CriticForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: '', title:'', errors: {}
+            text: '', title:'', place:'', errors: {}
         };
 
         this.onChange = this.onChange.bind(this);
@@ -19,6 +21,7 @@ class CriticForm extends Component {
     }
 
     componentDidMount() {
+        this.props.getPlaces();
         if (!this.props.auth.isAuthenticated) {
             this.props.history.push("/login");
         }
@@ -41,10 +44,11 @@ class CriticForm extends Component {
             title: this.state.title,
             text: this.state.text,
             user: user.id,
-            nickname: user.nickname
+            nickname: user.nickname,
+            place: this.state.place
         };
         this.props.addPost(newPost);
-        this.setState({ text: '', title: '' });
+        this.setState({ text: '', title: '', place: ''});
     }
 
     onChange(e) {
@@ -52,7 +56,10 @@ class CriticForm extends Component {
     }
 
     render () {
-        const { text, title, errors } = this.state;
+        const { text, title, errors, place } = this.state,
+            { places } = this.props.place;
+
+
         return (
             <div className="post-critic">
                 <div className="post-critic__container">
@@ -64,6 +71,9 @@ class CriticForm extends Component {
                             placeholder="Describa su experiencia" name="title" value={title}
                             onChange={this.onChange} error={errors.title}
                         />
+                        { (places.length > 0) ?
+                            (<DataListGroup onChange={this.onChange} value={place} name={"place"}
+                                           options={places} list={"lugares"}/>) : null}
                         <TextAreaGroup
                             placeholder = "Comparte tu experiencia"
                             name="text"
@@ -81,13 +91,16 @@ class CriticForm extends Component {
 
 CriticForm.propTypes = {
     addPost: PropTypes.func.isRequired,
+    getPlaces: PropTypes.func,
     auth: PropTypes.object.isRequired,
-    errors: PropTypes.object
+    errors: PropTypes.object,
+    place: PropTypes.object
 };
 
 const mapStateToProps = state => ({
     auth: state.auth,
-    errors: state.errors
+    errors: state.errors,
+    place: state.place
 });
 
-export default connect(mapStateToProps, { addPost })(CriticForm);
+export default connect(mapStateToProps, { addPost, getPlaces })(CriticForm);

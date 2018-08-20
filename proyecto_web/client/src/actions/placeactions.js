@@ -3,7 +3,7 @@ import axios from 'axios';
 import {GET_PLACE, GET_PLACES, PLACE_LOADING, ADD_PLACE, DELETE_PLACE, GET_ERRORS, GET_POSTS} from "./types";
 
 export const addPlace = (placeData) => dispatch => {
-    axios.post("api/places", placeData).then(res => {
+    axios.post("/api/places", placeData).then(res => {
         dispatch({
             type: ADD_PLACE,
             payload: res.data
@@ -20,7 +20,7 @@ export const addPlace = (placeData) => dispatch => {
 
 export const getPlaces = () => dispatch => {
     dispatch(setLoadingState());
-    axios.get("api/places").then(res => {
+    axios.get("/api/places").then(res => {
         dispatch({
             type: GET_PLACES,
             payload: res.data
@@ -54,12 +54,12 @@ export const getPlace = (id) => dispatch => {
 
 export const getCriticsByPlace = id => dispatch => {
     dispatch(setLoadingState());
-    axios.get(`api/critics/place/${id}`).then(res=>{
+    axios.get(`/api/critics/place/${id}`).then(res=>{
         dispatch({
             type: GET_POSTS,
             payload: res.data
         });
-        console.log(res.data)
+        //console.log(res.data)
     }).catch(err=>{
         dispatch({
             type: GET_POSTS,
@@ -70,7 +70,7 @@ export const getCriticsByPlace = id => dispatch => {
 };
 
 export const deletePlace = id => dispatch => {
-    axios.delete(`api/places/${id}`).then(res => {
+    axios.delete(`/api/places/${id}`).then(res => {
         dispatch({
             type: DELETE_PLACE,
             payload: id

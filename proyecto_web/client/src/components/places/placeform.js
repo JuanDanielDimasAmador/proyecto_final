@@ -110,7 +110,7 @@ class PlaceForm extends Component{
     }
 }
 
-PlaceForm.PropTypes = {
+PlaceForm.propTypes = {
     addPlace: PropTypes.func,
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object  

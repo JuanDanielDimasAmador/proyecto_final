@@ -4,20 +4,22 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import PlaceItem from '../places/placeitem';
+import CriticFeed from "../critics/criticfeed";
 
-import { getPlace } from "../../actions/placeactions";
+import { getPlace, getCriticsByPlace } from "../../actions/placeactions";
+
 
 
 class Place extends Component{
     componentDidMount(){
         this.props.getPlace(this.props.match.params.id);     
-
+        this.props.getCriticsByPlace(this.props.match.params.id);
     }
 
     render(){
-        let placeContent;
-        const { place, loading } = this.props.place,
-            {auth} = this.props;
+        let placeContent, postContent;
+        const { posts } = this.props.critic,
+            { place, loading } = this.props.place;
 
         if ( place === null || loading ) {
             placeContent = <h4>Loading...</h4>;
@@ -26,10 +28,18 @@ class Place extends Component{
                 placeitem: <PlaceItem key={place._id} place = {place} cssClass={"place"} withActions={false}/>,
             };
         } else {
-            placeContent = [
-                <PlaceItem key={place._id} place={place} cssClass={"place"} withActions={false}/>,
-            ];
+            placeContent = (
+                <PlaceItem key={place._id} place={place} cssClass={"place"} withActions={false}/>
+            );
+        }
 
+
+        if (posts === null || loading) {
+            postContent = <h4 className={"feed__loading"}>Loading...</h4>
+        } else {
+            posts.length > 0 ?
+                postContent = <CriticFeed posts={posts}/> :
+                postContent = <h4 className="feed__empty">Aun no hay nada para mostrar. Comparte alguna de tus experiencias!</h4>;
         }
 
         return(
@@ -38,6 +48,9 @@ class Place extends Component{
                     <Link to={"/lugares"} className="button button-small">Volver atras</Link>
                     {placeContent.placeitem}
                 </div>
+                <div className="feed__container">
+                    { postContent }
+                </div>
             </div>
         )
     }
@@ -45,13 +58,16 @@ class Place extends Component{
 
 Place.propTypes = {
     getPlace: PropTypes.func,
+    getCriticsByPlace: PropTypes.func,
     place: PropTypes.object,
-    auth: PropTypes.object
+    auth: PropTypes.object,
+    critic: PropTypes.object
 };
 
 const mapStateToProps = state => ({
     auth: state.auth,
-    place: state.place
+    place: state.place,
+    critic: state.critic,
 });
 
-export default connect(mapStateToProps, { getPlace }) (Place);
+export default connect(mapStateToProps, { getPlace, getCriticsByPlace }) (Place);

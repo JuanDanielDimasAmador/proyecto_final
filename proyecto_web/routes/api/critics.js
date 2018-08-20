@@ -20,7 +20,8 @@ router.post("/",passport.authenticate("jwt",{session: false}),(req,res) => {
         user: req.user.id,
         title: req.body.title,
         text: req.body.text,
-        nickname: req.user.nickname
+        nickname: req.user.nickname,
+        place: req.body.place
     });
     newCritic.save().then(critic => res.json(critic)).catch(err => console.log(err));
 });

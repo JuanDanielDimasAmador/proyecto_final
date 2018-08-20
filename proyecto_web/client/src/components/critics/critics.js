@@ -40,12 +40,12 @@ class Critics extends Component {
 Critics.propTypes = {
     getPosts: PropTypes.func.isRequired,
     critic: PropTypes.object.isRequired,
-    auth: PropTypes.object.isRequired
+    auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = state => ({
     critic: state.critic,
-    auth: state.auth
+    auth: state.auth,
 });
 
 export default connect(mapStateToProps, {getPosts}) (Critics);
