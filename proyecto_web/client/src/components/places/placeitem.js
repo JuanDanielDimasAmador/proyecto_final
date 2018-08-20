@@ -15,17 +15,18 @@ class PlaceItem extends Component {
 
     render() {
 
-        const { place, cssClass } = this.props;
+        const {cssClass } = this.props,
+            {_id, type, name, description, location} = this.props.place;
 
 
         return (
             <div className={`${cssClass}__item`}>
                 <h2 className={`${cssClass}__item--title`}>
-                    { cssClass === "place" ? place.name : <Link to={`/lugares/${place._id}`} className={`feed__item--link`}>{place.name}</Link> }
-                    <span className={`${cssClass}__item--user`}>Tipo:&nbsp;{place.type}</span>
+                    { cssClass === "place" ? name : <Link to={`/lugares/${_id}`} className={`feed__item--link`}>{name}</Link> }
+                    <span className={`${cssClass}__item--user`}>Tipo:&nbsp;{type}</span>
                 </h2>
-                <p><b>Descipción: </b></p>  <p className="comment__item--text">{place.description}</p>
-                <p><b>Dirección:  </b></p>  <p className="comment__item--text">{place.location.direction}</p>           
+                <p><b>Descipción: </b></p>  <p className="comment__item--text">{description}</p>
+                <p><b>Dirección:  </b></p>  <p className="comment__item--text">{location ? location.direction : null}</p>
             </div>
         )
     }

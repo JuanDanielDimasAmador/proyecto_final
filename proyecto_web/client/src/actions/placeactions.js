@@ -8,7 +8,7 @@ export const addPlace = (placeData) => dispatch => {
             type: ADD_PLACE,
             payload: res.data
         });
-        console.log(res.data)
+        //console.log(res.data)
     }).catch(err => {
         dispatch({
             type: GET_ERRORS,
@@ -25,7 +25,7 @@ export const getPlaces = () => dispatch => {
             type: GET_PLACES,
             payload: res.data
         });
-        console.log(res.data);
+        //console.log(res.data);
     }).catch(err => {
         dispatch({
             type: GET_PLACES,
@@ -37,12 +37,12 @@ export const getPlaces = () => dispatch => {
 
 export const getPlace = (id) => dispatch => {
     dispatch(setLoadingState());
-    axios.get(`api/places/${id}`).then(res=> {
+    axios.get(`/api/places/${id}`).then(res=> {
         dispatch({
             type: GET_PLACE,
             payload: res.data
         });
-        console.log(res.data)
+        //console.log(res.data)
     }).catch(err => {
         dispatch({
             type: GET_PLACE,
