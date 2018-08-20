@@ -77,7 +77,7 @@ class Navbar extends Component {
         return (
             <header className={ location.pathname === "/" ? "navbar navbar-landing" : "navbar" }>
                 <div className="navbar__nav">
-                    <span className="navbar__nav--button-logo"/>
+                    <Link to={"/"} className="navbar__nav--button-logo"/>
                     <NavSearch />
                 </div>
                 { isAuthenticated ? <NavAuth/> : <NavGuest/> }
