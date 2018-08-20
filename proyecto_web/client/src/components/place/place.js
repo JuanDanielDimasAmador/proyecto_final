@@ -38,7 +38,10 @@ class Place extends Component{
             postContent = <h4 className={"feed__loading"}>Loading...</h4>
         } else {
             posts.length > 0 ?
-                postContent = <CriticFeed posts={posts}/> :
+                postContent = [
+                    <h2>Criticas hechas a este lugar</h2>,
+                    <CriticFeed posts={posts}/>
+                ] :
                 postContent = <h4 className="feed__empty">Aun no hay nada para mostrar. Comparte alguna de tus experiencias!</h4>;
         }
 
@@ -49,6 +52,7 @@ class Place extends Component{
                     {placeContent.placeitem}
                 </div>
                 <div className="feed__container">
+
                     { postContent }
                 </div>
             </div>
