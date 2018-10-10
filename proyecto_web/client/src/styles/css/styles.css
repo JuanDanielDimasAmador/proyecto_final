@@ -90,6 +90,21 @@ body {
         color: #2DC7FF; }
       .navbar__list--link:hover {
         color: #00ABE7; }
+  @media (max-width: 768px) {
+    .navbar {
+      padding: 0 2rem;
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      height: auto;
+      min-height: 65px; }
+      .navbar__nav {
+        width: 100%; }
+        .navbar__nav--search {
+          width: calc(100% - 35px); }
+          .navbar__nav--search-bar {
+            width: 100%; } }
 
 .footer {
   min-height: 40vh;
@@ -311,6 +326,7 @@ body {
     grid-auto-rows: 8rem;
     grid-gap: 1rem;
     width: 100%;
+    min-height: 90vh;
     padding: 2rem 5rem;
     background-color: rgba(0, 38, 66, 0.75); }
   .feed__empty {
@@ -374,8 +390,11 @@ body {
       -webkit-box-pack: justify;
       -ms-flex-pack: justify;
       justify-content: space-between; }
+    @media (max-width: 768px) {
+      .feed__item {
+        grid-column: 1/4; } }
 
-.critic {
+.critic, .place {
   position: relative;
   width: 100%;
   min-height: 90vh;
@@ -383,27 +402,27 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed; }
-  .critic__container {
+  .critic__container, .place__container {
     position: relative;
-    padding: 4rem 4rem 1rem 4rem;
+    padding: 4rem;
     background-color: rgba(0, 38, 66, 0.7); }
-    .critic__container .button {
+    .critic__container .button, .place__container .button {
       position: absolute;
       top: 1rem;
       right: 1rem; }
-  .critic__item {
+  .critic__item, .place__item {
     padding: 1rem 2.5rem;
     background-color: #FBFFFE;
     border-radius: 1rem; }
-    .critic__item--title, .critic__item--text {
+    .critic__item--title, .critic__item--text, .place__item--title, .place__item--text {
       margin: 0.3rem 0; }
-    .critic__item--title {
+    .critic__item--title, .place__item--title {
       position: relative;
       font-size: 2.369rem; }
-    .critic__item--user {
+    .critic__item--user, .place__item--user {
       margin-left: 1.5rem;
       font-size: 1.111rem; }
-    .critic__item--class {
+    .critic__item--class, .place__item--class {
       position: absolute;
       top: 0;
       right: 1rem;
@@ -413,6 +432,7 @@ body {
 
 .comment__feed {
   width: 100%;
+  min-height: 50vh;
   padding: 2rem 5rem;
   display: grid;
   background-color: rgba(0, 38, 66, 0.75);
@@ -435,6 +455,11 @@ body {
   justify-content: space-evenly;
   background-color: #FBFFFE;
   border-radius: 1rem; }
+
+.comment__title {
+  grid-column: 1/4;
+  color: #FBFFFE;
+  text-align: center; }
 
 .landing {
   width: 100%;

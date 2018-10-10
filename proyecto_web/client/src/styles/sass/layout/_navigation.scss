@@ -83,4 +83,22 @@
             }
         }
     }
+    
+    @include md {
+        padding: 0 2rem;
+        flex-direction: column;
+        height: auto;
+        min-height: 65px;
+        
+        &__nav {
+            width: 100%;
+            
+            &--search {
+                width: calc(100% - 35px);
+                &-bar {
+                    width: 100%;
+                }
+            }
+        }
+    }
 }

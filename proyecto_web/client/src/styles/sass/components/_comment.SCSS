@@ -1,6 +1,7 @@
 .comment {
     &__feed {
         width: 100%;
+        min-height: 50vh;
         padding: 2rem 5rem;
         display: grid;
         background-color: rgba($super-dark, 0.75);
@@ -21,5 +22,11 @@
         justify-content: space-evenly;
         background-color: $white-color;
         border-radius: 1rem;
+    }
+    
+    &__title {
+        grid-column: 1/4;
+        color: $white-color;
+        text-align: center;
     }
 }

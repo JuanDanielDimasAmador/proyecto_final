@@ -16,6 +16,7 @@
         grid-auto-rows: 8rem;
         grid-gap: 1rem;
         width: 100%;
+        min-height: 90vh;
         padding: 2rem 5rem;
         background-color: rgba($super-dark, 0.75);
     }
@@ -85,5 +86,10 @@
             flex-direction: row;
             justify-content: space-between;
         }
+        
+        @include md {
+            grid-column: 1/4;
+        }
     }
 }
+

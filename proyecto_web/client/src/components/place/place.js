@@ -12,7 +12,7 @@ import { getPlace, getCriticsByPlace } from "../../actions/placeactions";
 
 class Place extends Component{
     componentDidMount(){
-        this.props.getPlace(this.props.match.params.id);     
+        this.props.getPlace(this.props.match.params.id);
         this.props.getCriticsByPlace(this.props.match.params.id);
     }
 
@@ -39,21 +39,20 @@ class Place extends Component{
         } else {
             posts.length > 0 ?
                 postContent = [
-                    <h2>Criticas hechas a este lugar</h2>,
+                    <h2 className="comment__title">Criticas hechas a este lugar</h2>,
                     <CriticFeed posts={posts}/>
                 ] :
                 postContent = <h4 className="feed__empty">Aun no hay nada para mostrar. Comparte alguna de tus experiencias!</h4>;
         }
 
         return(
-            <div className="comment">
-                <div className="comment__container">
+            <div className="place">
+                <div className="place__container">
                     <Link to={"/lugares"} className="button button-small">Volver atras</Link>
                     {placeContent.placeitem}
                 </div>
-                <div className="feed__container">
-
-                    { postContent }
+                <div className="comment">
+                    <div className="comment__feed">{ postContent }</div>
                 </div>
             </div>
         )

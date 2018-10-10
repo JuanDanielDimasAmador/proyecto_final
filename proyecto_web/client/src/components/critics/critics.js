@@ -19,7 +19,7 @@ class Critics extends Component {
             { auth } = this.props;
 
         if (posts === null || loading) {
-            postContent = <h4 className={"feed__loading"}>Loading...</h4>
+            postContent = <h4 className={"feed__loading"}>Loading...</h4>;
         } else {
             posts.length > 0 ?
                 postContent = <CriticFeed posts={posts}/> :

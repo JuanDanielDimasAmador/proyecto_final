@@ -1,4 +1,4 @@
-.critic {
+.critic, .place {
     position: relative;
     width: 100%;
     min-height: 90vh;
@@ -11,7 +11,7 @@
 
     &__container {
         position: relative;
-        padding: 4rem 4rem 1rem 4rem;
+        padding: 4rem;
         background-color: rgba($super-dark, 0.7);
         .button {
             position: absolute;
