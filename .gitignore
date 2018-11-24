@@ -3,6 +3,7 @@ prepros-6.config
 .idea/
 package-lock.json
 
+proyecto_web/config/keys_dev.js
 proyecto_web/client/acorn
 proyecto_web/client/acorn.cmd
 proyecto_web/client/ansi-html
